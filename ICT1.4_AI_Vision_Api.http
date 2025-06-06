@@ -1,0 +1,6 @@
+@ICT1._4_AI_Vision_Api_HostAddress = http://localhost:5210
+
+GET {{ICT1._4_AI_Vision_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
