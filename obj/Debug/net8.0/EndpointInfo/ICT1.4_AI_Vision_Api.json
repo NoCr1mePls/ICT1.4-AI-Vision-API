@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ICT1.4_AI_Vision_Api",
+    "version": "1.0"
+  },
+  "paths": {
+    "/litter": {
+      "post": {
+        "tags": [
+          "ExternalLitter"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ExternalLitter"
+        ],
+        "parameters": [
+          {
+            "name": "beginDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "cat",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/litter/{id}": {
+      "get": {
+        "tags": [
+          "ExternalLitter"
+        ],
+        "operationId": "id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Litter"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Litter"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Litter"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Litter": {
+        "required": [
+          "detection_time",
+          "litter_classification",
+          "location_latitude",
+          "location_longitude",
+          "weather"
+        ],
+        "type": "object",
+        "properties": {
+          "litter_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "litter_classification": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "confidence": {
+            "maximum": 1,
+            "minimum": 0.85,
+            "type": "number",
+            "format": "float"
+          },
+          "location_latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "location_longitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "detection_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "weather": {
+            "$ref": "#/components/schemas/Weather"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Weather": {
+        "required": [
+          "conditions",
+          "humidity",
+          "temperature_celsius"
+        ],
+        "type": "object",
+        "properties": {
+          "weather_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "temperature_celsius": {
+            "type": "number",
+            "format": "double"
+          },
+          "humidity": {
+            "type": "number",
+            "format": "double"
+          },
+          "conditions": {
+            "maxLength": 20,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

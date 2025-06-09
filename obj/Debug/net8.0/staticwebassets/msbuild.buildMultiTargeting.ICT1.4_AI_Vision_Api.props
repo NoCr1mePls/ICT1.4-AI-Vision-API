@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ICT1.4_AI_Vision_Api.props" />
+</Project>
