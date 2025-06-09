@@ -32,7 +32,7 @@ namespace HomeTry.Repositories
             // Return the full inserted Litter + Weather
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
-                         Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
+                         Weather.weather_id AS weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
                   JOIN Weather ON Litter.weather_id = Weather.weather_id
                   WHERE Litter.litter_id = @id
@@ -40,7 +40,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { id = litter.litter_id }, splitOn: "weather_id");
 
@@ -62,7 +62,7 @@ namespace HomeTry.Repositories
 
                 var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
                 {
-                    litter.Weather = weather;
+                    litter.weather = weather;
                     return litter;
                 },
                 splitOn: "weather_id");
@@ -85,7 +85,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { id }, splitOn: "weather_id");
 
@@ -107,7 +107,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { startTime }, splitOn: "weather_id");
 
@@ -129,7 +129,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { startTime, litterClassification }, splitOn: "weather_id");
 
@@ -151,7 +151,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { startTime, stopTime }, splitOn: "weather_id");
 
@@ -173,7 +173,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { startTime, stopTime, litterClassification }, splitOn: "weather_id");
 
@@ -195,7 +195,7 @@ namespace HomeTry.Repositories
 
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
-                litter.Weather = weather;
+                litter.weather = weather;
                 return litter;
             }, new { litterClassification }, splitOn: "weather_id");
 

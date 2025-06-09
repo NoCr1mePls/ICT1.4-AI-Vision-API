@@ -8,7 +8,7 @@
     "/litter": {
       "post": {
         "tags": [
-          "ExternalLitter"
+          "MonitoringLitter"
         ],
         "requestBody": {
           "content": {
@@ -37,7 +37,7 @@
       },
       "get": {
         "tags": [
-          "ExternalLitter"
+          "MonitoringLitter"
         ],
         "parameters": [
           {
@@ -75,7 +75,7 @@
     "/litter/{id}": {
       "get": {
         "tags": [
-          "ExternalLitter"
+          "MonitoringLitter"
         ],
         "operationId": "id",
         "parameters": [
@@ -151,6 +151,11 @@
           "detection_time": {
             "type": "string",
             "format": "date-time"
+          },
+          "weather_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
           },
           "weather": {
             "$ref": "#/components/schemas/Weather"

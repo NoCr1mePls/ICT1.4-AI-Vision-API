@@ -7,12 +7,12 @@ namespace HomeTry.Controllers
 {
     [ApiController]
     [Route("litter")]
-    public class ExternalLitterController : ControllerBase
+    public class MonitoringLitterController : ControllerBase
     {
         private readonly LitterRepository _litterRepository;
-        private readonly ILogger<ExternalLitterController> _logger;
+        private readonly ILogger<MonitoringLitterController> _logger;
 
-        public ExternalLitterController(LitterRepository litterRepository, ILogger<ExternalLitterController> logger)
+        public MonitoringLitterController(LitterRepository litterRepository, ILogger<MonitoringLitterController> logger)
         {
             _litterRepository = litterRepository;
             _logger = logger;
@@ -23,13 +23,11 @@ namespace HomeTry.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(Litter litter)
         {
-            var weather = new Weather
-            {
-                weather_id = Guid.NewGuid(),
-            };
             litter.litter_id = Guid.NewGuid();
+            litter.weather.weather_id = Guid.NewGuid();
+            litter.weather_id = litter.weather.weather_id; ;
 
-            var createdWeatherForecast = await _litterRepository.InsertAsync(litter, weather);
+            var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
             return Created();
         }
 

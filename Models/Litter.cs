@@ -22,9 +22,9 @@ namespace HomeTry.Models
         [Required]
         public DateTime detection_time { get; set; }
 
-        public Guid? weather_id;
+        public Guid? weather_id { get; set; }
 
         [Required]
-        public Weather Weather { get; set; }
+        public Weather weather { get; set; }
     }
 }

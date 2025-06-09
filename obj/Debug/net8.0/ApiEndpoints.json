@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "HomeTry.Controllers.ExternalLitterController",
+    "ContainingType": "HomeTry.Controllers.MonitoringLitterController",
     "Method": "Add",
     "RelativePath": "litter",
     "HttpMethod": "POST",
@@ -16,7 +16,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "HomeTry.Controllers.ExternalLitterController",
+    "ContainingType": "HomeTry.Controllers.MonitoringLitterController",
     "Method": "Get",
     "RelativePath": "litter",
     "HttpMethod": "GET",
@@ -42,7 +42,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "HomeTry.Controllers.ExternalLitterController",
+    "ContainingType": "HomeTry.Controllers.MonitoringLitterController",
     "Method": "Get",
     "RelativePath": "litter/{id}",
     "HttpMethod": "GET",
