@@ -1,55 +1,19 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.4",
   "info": {
     "title": "ICT1.4_AI_Vision_Api",
     "version": "1.0"
   },
   "paths": {
-    "/litter": {
-      "post": {
-        "tags": [
-          "MonitoringLitter"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Litter"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Litter"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Litter"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/litter/today": {
       "get": {
         "tags": [
           "MonitoringLitter"
         ],
+        "operationId": "today",
         "parameters": [
           {
-            "name": "beginDate",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "date"
-            }
-          },
-          {
-            "name": "endDate",
+            "name": "date",
             "in": "query",
             "schema": {
               "type": "string",
@@ -72,15 +36,22 @@
         }
       }
     },
-    "/litter/today": {
+    "/litter": {
       "get": {
         "tags": [
           "MonitoringLitter"
         ],
-        "operationId": "today",
         "parameters": [
           {
-            "name": "date",
+            "name": "beginDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
             "in": "query",
             "schema": {
               "type": "string",
@@ -140,6 +111,70 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/litter/manual": {
+      "post": {
+        "tags": [
+          "SensoringLitter"
+        ],
+        "operationId": "ManualUpload",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/litter/auto": {
+      "post": {
+        "tags": [
+          "SensoringLitter"
+        ],
+        "operationId": "AutoUpload",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Litter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

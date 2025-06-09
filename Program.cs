@@ -16,6 +16,7 @@ if (string.IsNullOrWhiteSpace(sqlConnectionString))
     throw new InvalidProgramException("Configuration variable SqlConnectionString not found");
 
 builder.Services.AddTransient<LitterRepository, LitterRepository>(o => new LitterRepository(sqlConnectionString));
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

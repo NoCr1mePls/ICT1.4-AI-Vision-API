@@ -1,22 +1,6 @@
 [
   {
     "ContainingType": "HomeTry.Controllers.MonitoringLitterController",
-    "Method": "Add",
-    "RelativePath": "litter",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "litter",
-        "Type": "HomeTry.Models.Litter",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "HomeTry.Controllers.MonitoringLitterController",
     "Method": "Get",
     "RelativePath": "litter",
     "HttpMethod": "GET",
@@ -67,6 +51,40 @@
       }
     ],
     "EndpointName": "id"
+  },
+  {
+    "ContainingType": "HomeTry.Controllers.SensoringLitterController",
+    "Method": "AddAuto",
+    "RelativePath": "litter/auto",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "litter",
+        "Type": "HomeTry.Models.Litter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "AutoUpload"
+  },
+  {
+    "ContainingType": "HomeTry.Controllers.SensoringLitterController",
+    "Method": "AddManual",
+    "RelativePath": "litter/manual",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "litter",
+        "Type": "HomeTry.Models.Litter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "ManualUpload"
   },
   {
     "ContainingType": "HomeTry.Controllers.MonitoringLitterController",

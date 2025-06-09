@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ICT1.4_AI_Vision_Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3316a4599e35552fe50f3bb8114e2fdf28fc628f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eece35a5b26e6eba78bdc8d193080342ef4ffa8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ICT1.4_AI_Vision_Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ICT1.4_AI_Vision_Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -18,19 +18,6 @@ namespace HomeTry.Controllers
             _logger = logger;
         }
 
-
-        //insert a new record
-        [HttpPost]
-        public async Task<ActionResult> Add(Litter litter)
-        {
-            litter.litter_id = Guid.NewGuid();
-            litter.weather.weather_id = Guid.NewGuid();
-            litter.weather_id = litter.weather.weather_id; ;
-
-            var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
-            return Created();
-        }
-
         [HttpGet("today", Name = "today")]
         //read all litter + weather records from a specific date
         public async Task<IActionResult> Get([FromQuery] DateOnly? date, [FromQuery] int? cat)
