@@ -35,7 +35,7 @@ namespace HomeTry.Controllers
             litter.weather_id = litter.weather.weather_id; ;
 
             var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
-            return Created();
+            return CreatedAtRoute("ManualUpload", new { id = litter.litter_id }, litter);
         }
 
         [HttpPost("auto", Name = "AutoUpload")]
