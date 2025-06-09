@@ -72,6 +72,37 @@
         }
       }
     },
+    "/litter/today": {
+      "get": {
+        "tags": [
+          "MonitoringLitter"
+        ],
+        "operationId": "today",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "cat",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/litter/{id}": {
       "get": {
         "tags": [

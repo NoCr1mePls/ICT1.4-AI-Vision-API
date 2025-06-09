@@ -31,6 +31,46 @@ namespace HomeTry.Controllers
             return Created();
         }
 
+        [HttpGet("today", Name = "today")]
+        //read all litter + weather records from a specific date
+        public async Task<IActionResult> Get([FromQuery] DateOnly? date, [FromQuery] int? cat)
+        {
+            if (date.HasValue && cat.HasValue)
+            {
+                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, cat.Value);
+                return Ok(data);
+            }
+            if (date.HasValue)
+            {
+                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
+                return Ok(data);
+            }
+            if (cat.HasValue)
+            {
+                date = DateOnly.FromDateTime(DateTime.Now);
+
+                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, cat.Value);
+                return Ok(data);
+            }
+            else
+            {
+                date = DateOnly.FromDateTime(DateTime.Now);
+                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
+                return Ok(data);
+            }
+        }
 
         [HttpGet]
         //read all litter + weather records between certain dates
