@@ -19,22 +19,22 @@ namespace HomeTry.Repositories
             using var sqlConnection = new SqlConnection(sqlConnectionString);
             await sqlConnection.OpenAsync();
 
+            // Insert Litter referencing the weather
+            await sqlConnection.ExecuteAsync(
+                @"INSERT INTO Litter (litter_id, litter_classification, confidence, location_latitude, location_longitude)
+                  VALUES (@litter_id, @litter_classification, @confidence, @location_latitude, @location_longitude)", litter);
+
             // Insert Weather first
             await sqlConnection.ExecuteAsync(
                 @"INSERT INTO Weather (weather_id, temperature_celsius, humidity, conditions)
                   VALUES (@weather_id, @temperature_celsius, @humidity, @conditions)", weather);
-
-            // Insert Litter referencing the weather
-            await sqlConnection.ExecuteAsync(
-                @"INSERT INTO Litter (litter_id, litter_classification, confidence, location_latitude, location_longitude, weather_id)
-                  VALUES (@litter_id, @litter_classification, @confidence, @location_latitude, @location_longitude, @weather_id)", litter);
 
             // Return the full inserted Litter + Weather
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id AS weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.litter_id = @id
                   ORDER BY detection_time DESC";
 
@@ -57,7 +57,7 @@ namespace HomeTry.Repositories
                     @"SELECT Litter.litter_id AS litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                     Weather.weather_id AS weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                     FROM dbo.Litter
-                    JOIN Weather ON Litter.weather_id = Weather.weather_id
+                    JOIN Weather ON Litter.litter_id = Weather.weather_id
                     ORDER BY detection_time DESC";
 
                 var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
@@ -79,7 +79,7 @@ namespace HomeTry.Repositories
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.litter_id = @id
                   ORDER BY detection_time DESC";
 
@@ -101,7 +101,7 @@ namespace HomeTry.Repositories
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.detection_time >= @startTime
                   ORDER BY detection_time DESC";
 
@@ -123,7 +123,7 @@ namespace HomeTry.Repositories
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.detection_time >= @startTime AND Litter.litter_classification = @litterClassification
                   ORDER BY detection_time DESC";
 
@@ -145,7 +145,7 @@ namespace HomeTry.Repositories
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.detection_time >= @startTime AND Litter.detection_time <= @stopTime
                   ORDER BY detection_time DESC";
 
@@ -167,7 +167,7 @@ namespace HomeTry.Repositories
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.detection_time >= @startTime AND Litter.detection_time <= @stopTime AND Litter.litter_classification = @litterClassification
                   ORDER BY detection_time DESC";
 
@@ -189,7 +189,7 @@ namespace HomeTry.Repositories
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
                   FROM Litter
-                  JOIN Weather ON Litter.weather_id = Weather.weather_id
+                  JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.litter_classification = @litterClassification
                   ORDER BY detection_time DESC";
 

@@ -25,21 +25,8 @@ namespace HomeTry.Controllers
             _apiKey = configuration["WeatherApiKey"];
         }
 
-
-        //insert a new record
-        [HttpPost("manual", Name = "ManualUpload" )]
-        public async Task<ActionResult> AddManual(Litter litter)
-        {
-            litter.litter_id = Guid.NewGuid();
-            litter.weather.weather_id = Guid.NewGuid();
-            litter.weather_id = litter.weather.weather_id; ;
-
-            var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
-            return CreatedAtRoute("ManualUpload", new { id = litter.litter_id }, litter);
-        }
-
-        [HttpPost("auto", Name = "AutoUpload")]
-        public async Task<ActionResult> AddAuto(Litter litter)
+        [HttpPost]
+        public async Task<ActionResult> Add(Litter litter)
         {
             // Fetch weather info
             string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
@@ -48,30 +35,35 @@ namespace HomeTry.Controllers
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Error: " + response.StatusCode);
-                Console.WriteLine("Request to weather API has failed");
-                return StatusCode((int)response.StatusCode, "Weather API failed.");
+                return StatusCode((int)response.StatusCode, new { error = "Weather API failed." });
+
             }
 
             string content = await response.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject<dynamic>(content);
 
-            // Prepare new weather + litter records
             litter.litter_id = Guid.NewGuid();
-            litter.weather_id = Guid.NewGuid();
 
             if (litter.weather == null)
-                litter.weather = new Weather(); // Ensure it's not null
+            {
+                litter.weather = new Weather();
+            }
 
-            litter.weather.weather_id = (Guid)litter.weather_id;
+            litter.weather.weather_id = (Guid)litter.litter_id;
             litter.weather.temperature_celsius = data.current?.temp_c;
             litter.weather.humidity = data.current?.humidity;
             litter.weather.conditions = data.current?.condition?.text;
 
-            // Insert
             var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
 
-            return CreatedAtRoute("AutoUpload", new { id = litter.litter_id }, litter);
+            return CreatedAtAction(nameof(Add), new { id = litter.litter_id }, litter);
+        }
+
+        [HttpGet("{id}", Name = "id")]
+        public async Task<ActionResult<Litter>> Get(Guid id)
+        {
+            var litter = await _litterRepository.ReadAsync(id);
+            return Ok(litter);
         }
 
     }

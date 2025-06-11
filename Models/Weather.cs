@@ -13,7 +13,7 @@ namespace HomeTry.Models
         [Required]
         public double humidity { get; set; }
 
-        [Required, MaxLength(20)]
+        [Required]
         public string conditions { get; set; }
     }
 }

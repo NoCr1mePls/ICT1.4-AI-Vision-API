@@ -60,7 +60,6 @@ namespace HomeTry.Controllers
         }
 
         [HttpGet]
-        //read all litter + weather records between certain dates
         public async Task<IActionResult> Get([FromQuery] DateOnly? beginDate, [FromQuery] DateOnly? endDate, [FromQuery] int? cat)
         {
             if (beginDate.HasValue && endDate.HasValue && cat.HasValue)
@@ -103,15 +102,6 @@ namespace HomeTry.Controllers
                 var data = await _litterRepository.ReadAsync();
                 return Ok(data);
             }
-        }
-
-
-        //read a litter + weather record by litter id
-        [HttpGet("{id}", Name = "id")]
-        public async Task<ActionResult<Litter>> Get(Guid id)
-        {
-            var litter = await _litterRepository.ReadAsync(id);
-            return Ok(litter);
         }
     }
 }
