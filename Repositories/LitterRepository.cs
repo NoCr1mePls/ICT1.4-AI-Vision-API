@@ -13,23 +13,27 @@ namespace HomeTry.Repositories
             this.sqlConnectionString = sqlConnectionString;
         }
 
-        //insert a new record
+        /// <summary>
+        /// Inserts a weather and litter record into the database.
+        /// </summary>
+        /// <param name="litter">The litter model to insert.</param>
+        /// <param name="weather">The weather model to insert.</param>
+        /// <returns>The inserted litter model with correlating weather data.</returns>
         public async Task<Litter> InsertAsync(Litter litter, Weather weather)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
             await sqlConnection.OpenAsync();
 
-            // Insert Litter referencing the weather
+            //inserts weather record
             await sqlConnection.ExecuteAsync(
                 @"INSERT INTO Litter (litter_id, litter_classification, confidence, location_latitude, location_longitude)
                   VALUES (@litter_id, @litter_classification, @confidence, @location_latitude, @location_longitude)", litter);
-
-            // Insert Weather first
+            //inserts litter record
             await sqlConnection.ExecuteAsync(
                 @"INSERT INTO Weather (weather_id, temperature_celsius, humidity, conditions)
                   VALUES (@weather_id, @temperature_celsius, @humidity, @conditions)", weather);
 
-            // Return the full inserted Litter + Weather
+            //selects the combination of the litter and weather record previosly made
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id AS weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -38,6 +42,7 @@ namespace HomeTry.Repositories
                   WHERE Litter.litter_id = @id
                   ORDER BY detection_time DESC";
 
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
@@ -47,12 +52,15 @@ namespace HomeTry.Repositories
             return result.FirstOrDefault();
         }
 
-
-        //read all litter + weather records
+        /// <summary>
+        /// Retrieves all litter records with correlating weather data from the database.
+        /// </summary>
+        /// <returns>A collection of all litter records.</returns>
         public async Task<IEnumerable<Litter>> ReadAsync()
         {
             using (var sqlConnection = new SqlConnection(sqlConnectionString))
             {
+                //select weather and litter records and return a combined table where litter_id = weather_id
                 var sql =
                     @"SELECT Litter.litter_id AS litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                     Weather.weather_id AS weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -60,6 +68,7 @@ namespace HomeTry.Repositories
                     JOIN Weather ON Litter.litter_id = Weather.weather_id
                     ORDER BY detection_time DESC";
 
+                //parses the weather information into a litter model
                 var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
                 {
                     litter.weather = weather;
@@ -70,11 +79,16 @@ namespace HomeTry.Repositories
             }
         }
 
-        //read a litter + weather record by litter id
+        /// <summary>
+        /// Retrieves a specific litter record by its ID, including associated weather data.
+        /// </summary>
+        /// <param name="id">The unique identifier of the litter record.</param>
+        /// <returns>The matching litter record if found; otherwise, null.</returns>
         public async Task<Litter?> ReadAsync(Guid id)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
 
+            //select weather and litter records and return a combined table where litter_id = weather_id
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -83,6 +97,7 @@ namespace HomeTry.Repositories
                   WHERE Litter.litter_id = @id
                   ORDER BY detection_time DESC";
 
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
@@ -92,11 +107,16 @@ namespace HomeTry.Repositories
             return result.FirstOrDefault();
         }
 
-        //read all litter + weather records from a certain date
+        /// <summary>
+        /// Retrieves litter records detected after a specified start time, including associated weather data.
+        /// </summary>
+        /// <param name="startTime">The start time to filter records by.</param>
+        /// <returns>A collection of matching litter records.</returns>
         public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
 
+            //select weather and litter records and return a combined table where litter_id = weather_id
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -105,6 +125,7 @@ namespace HomeTry.Repositories
                   WHERE Litter.detection_time >= @startTime
                   ORDER BY detection_time DESC";
 
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
@@ -114,11 +135,18 @@ namespace HomeTry.Repositories
             return result;
         }
 
-        //read all litter + weather records from a certain date with a certain classification
+        /// <summary>
+        /// Retrieves litter records detected after a specified start time and matching a specific classification,
+        /// including associated weather data.
+        /// </summary>
+        /// <param name="startTime">The start time to filter records by.</param>
+        /// <param name="litterClassification">The classification to filter litter records by.</param>
+        /// <returns>A collection of matching litter records.</returns>
         public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, int litterClassification)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
 
+            //select weather and litter records and return a combined table where litter_id = weather_id
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -127,6 +155,7 @@ namespace HomeTry.Repositories
                   WHERE Litter.detection_time >= @startTime AND Litter.litter_classification = @litterClassification
                   ORDER BY detection_time DESC";
 
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
@@ -136,11 +165,17 @@ namespace HomeTry.Repositories
             return result;
         }
 
-        //read all litter + weather records between certain dates
+        /// <summary>
+        /// Retrieves litter records detected between a start and stop time, including associated weather data.
+        /// </summary>
+        /// <param name="startTime">The start time to filter records by.</param>
+        /// <param name="stopTime">The end time to filter records by.</param>
+        /// <returns>A collection of matching litter records.</returns>
         public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
 
+            //select weather and litter records and return a combined table where litter_id = weather_id
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -149,6 +184,7 @@ namespace HomeTry.Repositories
                   WHERE Litter.detection_time >= @startTime AND Litter.detection_time <= @stopTime
                   ORDER BY detection_time DESC";
 
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
@@ -158,11 +194,19 @@ namespace HomeTry.Repositories
             return result;
         }
 
-        //read all litter + weather records between certain dates and fit a certain class
+        /// <summary>
+        /// Retrieves litter records detected between a start and stop time and matching a specific classification,
+        /// including associated weather data.
+        /// </summary>
+        /// <param name="startTime">The start time to filter records by.</param>
+        /// <param name="stopTime">The end time to filter records by.</param>
+        /// <param name="litterClassification">The classification to filter litter records by.</param>
+        /// <returns>A collection of matching litter records.</returns>
         public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime, int litterClassification)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
 
+            //select weather and litter records and return a combined table where litter_id = weather_id
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -171,6 +215,7 @@ namespace HomeTry.Repositories
                   WHERE Litter.detection_time >= @startTime AND Litter.detection_time <= @stopTime AND Litter.litter_classification = @litterClassification
                   ORDER BY detection_time DESC";
 
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
@@ -180,11 +225,16 @@ namespace HomeTry.Repositories
             return result;
         }
 
-        //read all litter + weather records with a specific class
+        /// <summary>
+        /// Retrieves litter records matching a specific classification, including associated weather data.
+        /// </summary>
+        /// <param name="litterClassification">The classification to filter litter records by.</param>
+        /// <returns>A collection of matching litter records.</returns>
         public async Task<IEnumerable<Litter>> ReadAsync(int litterClassification)
         {
             using var sqlConnection = new SqlConnection(sqlConnectionString);
 
+            //select weather and litter records and return a combined table where litter_id = weather_id
             var sql =
                 @"SELECT Litter.litter_id, Litter.litter_classification, Litter.confidence, Litter.location_latitude, Litter.location_longitude, Litter.detection_time,
                          Weather.weather_id, Weather.temperature_celsius, Weather.humidity, Weather.conditions
@@ -192,7 +242,8 @@ namespace HomeTry.Repositories
                   JOIN Weather ON Litter.litter_id = Weather.weather_id
                   WHERE Litter.litter_classification = @litterClassification
                   ORDER BY detection_time DESC";
-
+            
+            //parses the weather information into a litter model
             var result = await sqlConnection.QueryAsync<Litter, Weather, Litter>(sql, (litter, weather) =>
             {
                 litter.weather = weather;
