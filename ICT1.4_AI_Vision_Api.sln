@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT1.4_AI_Vision_Api", "ICT1.4_AI_Vision_Api.csproj", "{DE089466-84A1-45CF-A786-558DE34237F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT1.4_AI_Vision_Api_Test", "..\ICT1.4_AI_Vision_Api_Test\ICT1.4_AI_Vision_Api_Test.csproj", "{8598FCD9-22D9-4FB4-9996-CD05461B21BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DE089466-84A1-45CF-A786-558DE34237F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE089466-84A1-45CF-A786-558DE34237F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE089466-84A1-45CF-A786-558DE34237F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8598FCD9-22D9-4FB4-9996-CD05461B21BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8598FCD9-22D9-4FB4-9996-CD05461B21BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8598FCD9-22D9-4FB4-9996-CD05461B21BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8598FCD9-22D9-4FB4-9996-CD05461B21BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
