@@ -33,21 +33,23 @@ namespace HomeTry.Controllers
         [HttpPost]
         public async Task<ActionResult> Add(Litter litter)
         {
-            string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
+            bool IsInvalid(double? value) => value == null || value == 0;
 
-            //checks if location is valid
-            if (litter.location_latitude == null && litter.location_latitude == 0 && litter.location_longitude == null && litter.location_longitude == 0)
+            if (IsInvalid(litter.location_latitude) && IsInvalid(litter.location_longitude))
             {
                 return BadRequest(new { error = "Both latitude and longitude are missing or zero." });
             }
-            else if (litter.location_latitude == null && litter.location_latitude == 0)
+            else if (IsInvalid(litter.location_latitude))
             {
                 return BadRequest(new { error = "Latitude is missing or zero." });
             }
-            else if (litter.location_longitude == null && litter.location_longitude == 0)
+            else if (IsInvalid(litter.location_longitude))
             {
                 return BadRequest(new { error = "Longitude is missing or zero." });
             }
+
+
+            string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
 
             //make request to api
             HttpResponseMessage response = await _httpClient.GetAsync(url);
