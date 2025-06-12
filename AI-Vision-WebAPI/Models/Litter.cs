@@ -10,7 +10,7 @@ namespace HomeTry.Models
         [Required]
         public int litter_classification { get; set; }
 
-        [Range(0.85, 1)]
+        [Required]
         public float confidence { get; set; }
 
         [Required]
@@ -19,12 +19,8 @@ namespace HomeTry.Models
         [Required]
         public float location_longitude { get; set; }
 
-        [Required]
-        public DateTime detection_time { get; set; }
+        public DateTime? detection_time { get; set; }
 
-        public Guid? weather_id { get; set; }
-
-        [Required]
-        public Weather weather { get; set; }
+        public Weather? weather { get; set; }
     }
 }

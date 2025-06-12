@@ -18,8 +18,14 @@ namespace HomeTry.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Retrieves litter records detected on a specific day, optionally filtered.
+        /// If no date is provided, today's date is used by default.
+        /// </summary>
+        /// <param name="date">The optional date to filter litter records.</param>
+        /// <param name="cat">The optional litter classification to filter the records by.</param>
+        /// <returns>https status codes + a filtered list of litter records</returns>
         [HttpGet("today", Name = "today")]
-        //read all litter + weather records from a specific date
         public async Task<IActionResult> Get([FromQuery] DateOnly? date, [FromQuery] int? cat)
         {
             if (date.HasValue && cat.HasValue)
@@ -59,8 +65,13 @@ namespace HomeTry.Controllers
             }
         }
 
+        /// <summary>
+        /// Retrieves litter records detected on a specific day, optionally filtered by classification.
+        /// </summary>
+        /// <param name="beginDate">The optional start date to filter records by.</param>
+        /// <param name="endDate">The optional end date to filter records to by.</param>
+        /// <param name="cat">The optional litter classification to filter the records by.</param>
         [HttpGet]
-        //read all litter + weather records between certain dates
         public async Task<IActionResult> Get([FromQuery] DateOnly? beginDate, [FromQuery] DateOnly? endDate, [FromQuery] int? cat)
         {
             if (beginDate.HasValue && endDate.HasValue && cat.HasValue)
@@ -103,15 +114,6 @@ namespace HomeTry.Controllers
                 var data = await _litterRepository.ReadAsync();
                 return Ok(data);
             }
-        }
-
-
-        //read a litter + weather record by litter id
-        [HttpGet("{id}", Name = "id")]
-        public async Task<ActionResult<Litter>> Get(Guid id)
-        {
-            var litter = await _litterRepository.ReadAsync(id);
-            return Ok(litter);
         }
     }
 }

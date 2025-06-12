@@ -22,56 +22,76 @@ namespace HomeTry.Controllers
             _litterRepository = litterRepository;
             _logger = logger;
             _httpClient = httpClientFactory.CreateClient();
-            _apiKey = configuration["WeatherApiKey"];
+            _apiKey = configuration["WeatherApiKey"];//refers to the user secrets for the api key
         }
 
-
-        //insert a new record
-        [HttpPost("manual", Name = "ManualUpload" )]
-        public async Task<ActionResult> AddManual(Litter litter)
+        /// <summary>
+        /// Inserts a weather and litter record into the database after enriching the data with an external api.
+        /// </summary>
+        /// <param name="litter">the json litter model that was filled in</param>
+        /// <returns>http status codes + json litter model</returns>
+        [HttpPost]
+        public async Task<ActionResult> Add(Litter litter)
         {
-            litter.litter_id = Guid.NewGuid();
-            litter.weather.weather_id = Guid.NewGuid();
-            litter.weather_id = litter.weather.weather_id; ;
+            bool IsInvalid(double? value) => value == null || value == 0;
 
-            var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
-            return CreatedAtRoute("ManualUpload", new { id = litter.litter_id }, litter);
-        }
+            if (IsInvalid(litter.location_latitude) && IsInvalid(litter.location_longitude))
+            {
+                return BadRequest(new { error = "Both latitude and longitude are missing or zero." });
+            }
+            else if (IsInvalid(litter.location_latitude))
+            {
+                return BadRequest(new { error = "Latitude is missing or zero." });
+            }
+            else if (IsInvalid(litter.location_longitude))
+            {
+                return BadRequest(new { error = "Longitude is missing or zero." });
+            }
 
-        [HttpPost("auto", Name = "AutoUpload")]
-        public async Task<ActionResult> AddAuto(Litter litter)
-        {
-            // Fetch weather info
+
             string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
 
-
+            //make request to api
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Error: " + response.StatusCode);
-                Console.WriteLine("Request to weather API has failed");
-                return StatusCode((int)response.StatusCode, "Weather API failed.");
+                return StatusCode((int)response.StatusCode, new { error = "Weather API failed." });
             }
 
+            //read info and turn it into usable variables
             string content = await response.Content.ReadAsStringAsync();
             dynamic data = JsonConvert.DeserializeObject<dynamic>(content);
 
-            // Prepare new weather + litter records
             litter.litter_id = Guid.NewGuid();
-            litter.weather_id = Guid.NewGuid();
 
             if (litter.weather == null)
-                litter.weather = new Weather(); // Ensure it's not null
+            {
+                litter.weather = new Weather();
+            }
 
-            litter.weather.weather_id = (Guid)litter.weather_id;
+            //fill in weather model data
+            litter.weather.weather_id = (Guid)litter.litter_id;
             litter.weather.temperature_celsius = data.current?.temp_c;
             litter.weather.humidity = data.current?.humidity;
             litter.weather.conditions = data.current?.condition?.text;
 
-            // Insert
+            //send to database
             var createdWeatherForecast = await _litterRepository.InsertAsync(litter, litter.weather);
 
-            return CreatedAtRoute("AutoUpload", new { id = litter.litter_id }, litter);
+            //return status code and model
+            return CreatedAtAction(nameof(Get), new { id = litter.litter_id }, litter);;
+        }
+
+        /// <summary>
+        /// Finds a specific record by id in the database
+        /// </summary>
+        /// <param name="id">The unique identifier of the litter record.</param>
+        /// <returns>http status codes + json litter model</returns>
+        [HttpGet("{id}", Name = "id")]
+        public async Task<ActionResult<Litter>> Get(Guid id)
+        {
+            var litter = await _litterRepository.ReadAsync(id);
+            return Ok(litter);
         }
 
     }
