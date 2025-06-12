@@ -36,15 +36,15 @@ namespace HomeTry.Controllers
             string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
 
             //checks if location is valid
-            if (litter.location_latitude != null && litter.location_latitude != 0 && litter.location_longitude != null && litter.location_longitude != 0)
+            if (litter.location_latitude == null && litter.location_latitude == 0 && litter.location_longitude == null && litter.location_longitude == 0)
             {
                 return BadRequest(new { error = "Both latitude and longitude are missing or zero." });
             }
-            else if (litter.location_latitude != null && litter.location_latitude != 0)
+            else if (litter.location_latitude == null && litter.location_latitude == 0)
             {
                 return BadRequest(new { error = "Latitude is missing or zero." });
             }
-            else if (litter.location_longitude != null && litter.location_longitude != 0)
+            else if (litter.location_longitude == null && litter.location_longitude == 0)
             {
                 return BadRequest(new { error = "Longitude is missing or zero." });
             }
