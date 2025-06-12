@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}|ICT1.4-AI-Vision-API-Test\\ICT1.4-AI-Vision-API-Test.csproj|c:\\users\\kvanm\\documents\\github\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api-test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}|ICT1.4-AI-Vision-API-Test\\ICT1.4-AI-Vision-API-Test.csproj|solutionrelative:ict1.4-ai-vision-api-test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MSTestSettings.cs",
+              "DocumentMoniker": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
+              "ToolTip": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T12:19:58.978Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
