@@ -56,21 +56,17 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
-      with: 
-          context: ./ICT1.4-AI-Vision-API
+
       
     - name: Build
       run: dotnet build --no-restore
-      with: 
-          context: ./ICT1.4-AI-Vision-API
 
     - name: Test
       run: dotnet test --no-build --verbosity normal
     
     - name: Publish
       run: dotnet publish ./${{ secrets.WEBAPI_PROJECT_NAME }} --output ${{env.PUBLISH_DIRECTORY}} --configuration Release 
-      with:
-          context: ./ICT1.4-AI-Vision-API
+
     
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
