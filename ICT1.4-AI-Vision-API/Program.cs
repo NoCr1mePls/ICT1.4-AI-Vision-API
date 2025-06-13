@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var sqlConnectionString = builder.Configuration["SqlConnectionString"];
+var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
 
 if (string.IsNullOrWhiteSpace(sqlConnectionString))
     throw new InvalidProgramException("Configuration variable SqlConnectionString not found");
