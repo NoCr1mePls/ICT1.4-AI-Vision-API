@@ -25,35 +25,70 @@ public class MonitoringLitterControllerTest
     }
 
     [TestMethod]
-    public async Task Get_ReturnsOkResult_WithJsonString()
+    public async Task GetOfDate_ReturnsOkResult_WithLitterObject()
     {
         // Arrange
         var userId = new Guid();
-        var jsonResult = "testJson";
-        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync(jsonResult);
-        int? cat = 0;
+        Litter returnLitter = new Litter();
+        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync(returnLitter);
+        int? category = 0;
 
         // Act
-        var result = await _controller.Get(new DateOnly?(), cat);
+        var result = await _controller.Get(new DateOnly?(), category);
 
         // Assert
-        var okResult = result.Result as OkObjectResult;
+        var okResult = result as OkObjectResult;
         Assert.IsNotNull(okResult);
-        Assert.AreEqual(jsonResult, okResult.Value);
+        Assert.AreEqual(returnLitter, okResult.Value);
     }
 
     [TestMethod]
-    public async Task Get_ReturnsBadRequest_WhenJsonIsNull()
+    public async Task GetOfDate_ReturnsBadRequest_WhenLitterObjectIsNull()
     {
         // Arrange
-        var userId = "testUserId";
-        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync((string)null);
+        var userId = new Guid();
+        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync((Litter)null);
+        int? category = 0;
 
         // Act
-        var result = await _controller.Get();
+        var result = await _controller.Get(new DateOnly?(), category);
 
         // Assert
-        var badRequestResult = result.Result as BadRequestResult;
+        var badRequestResult = result as BadRequestResult;
+        Assert.IsNotNull(badRequestResult);
+    }
+
+    [TestMethod]
+    public async Task GetBetweenRange_ReturnsOkResult_WithLitterObject()
+    {
+        // Arrange
+        var userId = new Guid();
+        Litter returnLitter = new Litter();
+        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync(returnLitter);
+        int? category = 0;
+
+        // Act
+        var result = await _controller.Get(new DateOnly?(), new DateOnly?(), category);
+
+        // Assert
+        var okResult = result as OkObjectResult;
+        Assert.IsNotNull(okResult);
+        Assert.AreEqual(returnLitter, okResult.Value);
+    }
+
+    [TestMethod]
+    public async Task GetBetweenRange_ReturnsBadRequest_WhenLitterObjectIsNull()
+    {
+        // Arrange
+        var userId = new Guid();
+        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync((Litter)null);
+        int? category = 0;
+
+        // Act
+        var result = await _controller.Get(new DateOnly?(), new DateOnly?(), category);
+
+        // Assert
+        var badRequestResult = result as BadRequestResult;
         Assert.IsNotNull(badRequestResult);
     }
 }
