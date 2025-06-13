@@ -33,7 +33,6 @@ builder.Services.AddDbContext<LitterDbContext>(options =>
 builder.Services.AddHttpContextAccessor(); 
 builder.Services.AddScoped<ILitterRepository, LitterRepository>();
 builder.Services.AddHttpClient();
-builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,6 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseHsts();
 app.UseAuthorization();
 
 app.MapControllers();

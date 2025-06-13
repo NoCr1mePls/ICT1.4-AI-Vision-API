@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT1.4-AI-Vision-API", "ICT1.4-AI-Vision-API\ICT1.4-AI-Vision-API.csproj", "{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT1.4-AI-Vision-API-Test", "ICT1.4-AI-Vision-API-Test\ICT1.4-AI-Vision-API-Test.csproj", "{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5} = {C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49F1D00A-ED2F-4A3B-A860-354D63745F09}
+	EndGlobalSection
+EndGlobal
