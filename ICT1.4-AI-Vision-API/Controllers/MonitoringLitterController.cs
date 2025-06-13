@@ -2,6 +2,7 @@
 using HomeTry.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using System.Collections;
 
 namespace HomeTry.Controllers
 {
@@ -114,6 +115,14 @@ namespace HomeTry.Controllers
                 var data = await _litterRepository.ReadAsync();
                 return Ok(data);
             }
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable> GetCategories()
+        {
+            List<string> categories = ["paper", "plastic", "biodegradable", "cardboard", "glass", "metal"];
+
+            return categories;
         }
     }
 }
