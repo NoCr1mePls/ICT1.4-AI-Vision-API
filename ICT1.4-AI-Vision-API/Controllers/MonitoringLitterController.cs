@@ -1,5 +1,6 @@
 ﻿using HomeTry.Models;
 using HomeTry.Repositories;
+using HomeTry.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Collections;
@@ -10,10 +11,10 @@ namespace HomeTry.Controllers
     [Route("litter")]
     public class MonitoringLitterController : ControllerBase
     {
-        private readonly LitterRepository _litterRepository;
+        private readonly ILitterRepository _litterRepository;
         private readonly ILogger<MonitoringLitterController> _logger;
 
-        public MonitoringLitterController(LitterRepository litterRepository, ILogger<MonitoringLitterController> logger)
+        public MonitoringLitterController(ILitterRepository litterRepository, ILogger<MonitoringLitterController> logger)
         {
             _litterRepository = litterRepository;
             _logger = logger;

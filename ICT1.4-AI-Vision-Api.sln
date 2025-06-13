@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT1.4-AI-Vision-API", "ICT1.4-AI-Vision-API\ICT1.4-AI-Vision-API.csproj", "{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICT1.4-AI-Vision-API-Test", "ICT1.4-AI-Vision-API-Test\ICT1.4-AI-Vision-API-Test.csproj", "{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5} = {C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
