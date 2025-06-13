@@ -1,10 +1,11 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using HomeTry.Models;
+using HomeTry.Interfaces;
 
 namespace HomeTry.Repositories
 {
-    public class LitterRepository
+    public class LitterRepository : ILitterRepository
     {
         private readonly string sqlConnectionString;
 
