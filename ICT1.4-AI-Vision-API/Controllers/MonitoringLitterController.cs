@@ -1,18 +1,19 @@
-﻿using HomeTry.Models;
-using HomeTry.Repositories;
+﻿using ICT1._4_AI_Vision_API.Models;
+using ICT1._4_AI_Vision_API.Interfaces;
+using ICT1._4_AI_Vision_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
-namespace HomeTry.Controllers
+namespace ICT1._4_AI_Vision_API.Controllers
 {
     [ApiController]
     [Route("litter")]
     public class MonitoringLitterController : ControllerBase
     {
-        private readonly LitterRepository _litterRepository;
+        private readonly ILitterRepository _litterRepository;
         private readonly ILogger<MonitoringLitterController> _logger;
 
-        public MonitoringLitterController(LitterRepository litterRepository, ILogger<MonitoringLitterController> logger)
+        public MonitoringLitterController(ILitterRepository litterRepository, ILogger<MonitoringLitterController> logger)
         {
             _litterRepository = litterRepository;
             _logger = logger;

@@ -1,6 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ICT1._4_AI_Vision_API.Models;
+using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace HomeTry.Models
+namespace ICT1._4_AI_Vision_API.Models
 {
     public class Litter
     {
@@ -11,16 +13,16 @@ namespace HomeTry.Models
         public int litter_classification { get; set; }
 
         [Required]
-        public float confidence { get; set; }
+        public double confidence { get; set; }
 
         [Required]
-        public float location_latitude { get; set; }
+        public double location_latitude { get; set; }
 
         [Required]
-        public float location_longitude { get; set; }
+        public double location_longitude { get; set; }
 
         public DateTime? detection_time { get; set; }
 
-        public Weather? weather { get; set; }
+        public Weather? Weather { get; set; }
     }
 }

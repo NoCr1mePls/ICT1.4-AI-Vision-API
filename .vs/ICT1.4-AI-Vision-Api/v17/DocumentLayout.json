@@ -1,21 +1,44 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\",
+  "WorkspaceRootPath": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\kvanm\\documents\\github\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\repositories\\litterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\repositories\\litterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\repositories\\litterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\kvanm\\documents\\github\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\controllers\\sensoringlittercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\models\\weather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\models\\weather.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\models\\litter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\models\\litter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\interfaces\\ilitterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\interfaces\\ilitterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\controllers\\sensoringlittercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\controllers\\sensoringlittercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\kvanm\\documents\\github\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\controllers\\monitoringlittercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api\\controllers\\monitoringlittercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C32B6E62-EDF9-4C26-AFCB-E8EC7D84EBC5}|ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API.csproj|solutionrelative:ict1.4-ai-vision-api\\controllers\\monitoringlittercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}|ICT1.4-AI-Vision-API-Test\\ICT1.4-AI-Vision-API-Test.csproj|c:\\users\\kvanm\\documents\\github\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api-test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jaapi\\AppData\\Roaming\\Microsoft\\UserSecrets\\0996918c-722d-4798-8472-bc18d6f06877\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}|ICT1.4-AI-Vision-API-Test\\ICT1.4-AI-Vision-API-Test.csproj|c:\\users\\jaapi\\onedrive\\documents\\vakken 2425\\lu1 slimme zwerfafvalherkenning\\ict1.4-ai-vision-api\\ict1.4-ai-vision-api-test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EA32FC07-A1B5-4084-B04A-3E790DBFBC25}|ICT1.4-AI-Vision-API-Test\\ICT1.4-AI-Vision-API-Test.csproj|solutionrelative:ict1.4-ai-vision-api-test\\mstestsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,54 +49,132 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LitterRepository.cs",
-              "DocumentMoniker": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
-              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
-              "ToolTip": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
-              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-12T12:28:33.595Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "SensoringLitterController.cs",
-              "DocumentMoniker": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\SensoringLitterController.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\SensoringLitterController.cs",
               "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Controllers\\SensoringLitterController.cs",
-              "ToolTip": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\SensoringLitterController.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\SensoringLitterController.cs",
               "RelativeToolTip": "ICT1.4-AI-Vision-API\\Controllers\\SensoringLitterController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T12:27:58.996Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DbContext.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Data\\DbContext.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Data\\DbContext.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Data\\DbContext.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Data\\DbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T11:17:57.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ILitterRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Interfaces\\ILitterRepository.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Interfaces\\ILitterRepository.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Interfaces\\ILitterRepository.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Interfaces\\ILitterRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T13:08:22.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Litter.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Models\\Litter.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Models\\Litter.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Models\\Litter.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Models\\Litter.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T11:20:52.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Weather.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Models\\Weather.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Models\\Weather.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Models\\Weather.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Models\\Weather.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T11:21:53.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LitterRepository.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Repositories\\LitterRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T12:28:33.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Program.cs",
+              "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Program.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Program.cs",
+              "RelativeToolTip": "ICT1.4-AI-Vision-API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T11:24:43.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "MonitoringLitterController.cs",
-              "DocumentMoniker": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\MonitoringLitterController.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\MonitoringLitterController.cs",
               "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API\\Controllers\\MonitoringLitterController.cs",
-              "ToolTip": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\MonitoringLitterController.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API\\Controllers\\MonitoringLitterController.cs",
               "RelativeToolTip": "ICT1.4-AI-Vision-API\\Controllers\\MonitoringLitterController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-12T12:27:25.67Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
+              "Title": "secrets.json",
+              "DocumentMoniker": "C:\\Users\\jaapi\\AppData\\Roaming\\Microsoft\\UserSecrets\\0996918c-722d-4798-8472-bc18d6f06877\\secrets.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\0996918c-722d-4798-8472-bc18d6f06877\\secrets.json",
+              "ToolTip": "C:\\Users\\jaapi\\AppData\\Roaming\\Microsoft\\UserSecrets\\0996918c-722d-4798-8472-bc18d6f06877\\secrets.json",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\0996918c-722d-4798-8472-bc18d6f06877\\secrets.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-13T11:14:25.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "MSTestSettings.cs",
-              "DocumentMoniker": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
+              "DocumentMoniker": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
               "RelativeDocumentMoniker": "ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
-              "ToolTip": "C:\\Users\\kvanm\\Documents\\GitHub\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
+              "ToolTip": "C:\\Users\\jaapi\\OneDrive\\Documents\\Vakken 2425\\LU1 Slimme Zwerfafvalherkenning\\ICT1.4-AI-Vision-API\\ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
               "RelativeToolTip": "ICT1.4-AI-Vision-API-Test\\MSTestSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
