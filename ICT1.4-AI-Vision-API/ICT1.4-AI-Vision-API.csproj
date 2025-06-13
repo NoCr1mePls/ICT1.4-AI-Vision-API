@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>ICT1._4_AI_Vision_API</RootNamespace>
+    <UserSecretsId>669a9574-80fa-45d6-830a-250e3c2ea303</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

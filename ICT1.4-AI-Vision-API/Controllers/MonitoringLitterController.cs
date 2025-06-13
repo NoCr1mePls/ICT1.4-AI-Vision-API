@@ -118,7 +118,7 @@ namespace HomeTry.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("Categories")]
         public async Task<IEnumerable> GetCategories()
         {
             List<string> categories = ["paper", "plastic", "biodegradable", "cardboard", "glass", "metal"];
