@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace HomeTry.Models
+namespace ICT1._4_AI_Vision_API.Models
 {
     public class Weather
     {
         [Key]
-        public Guid weather_id { get; set; }
+        public Guid weather_id { get; set; }  
 
         [Required]
         public double temperature_celsius { get; set; }
@@ -15,5 +16,7 @@ namespace HomeTry.Models
 
         [Required]
         public string conditions { get; set; }
+
+        public Litter? Litter { get; set; }
     }
 }

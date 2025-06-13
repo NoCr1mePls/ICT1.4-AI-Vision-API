@@ -1,11 +1,10 @@
-﻿using HomeTry.Models;
-using HomeTry.Repositories;
-using HomeTry.Interfaces;
+﻿using ICT1._4_AI_Vision_API.Models;
+using ICT1._4_AI_Vision_API.Interfaces;
+using ICT1._4_AI_Vision_API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using System.Collections;
 
-namespace HomeTry.Controllers
+namespace ICT1._4_AI_Vision_API.Controllers
 {
     [ApiController]
     [Route("litter")]
@@ -116,14 +115,6 @@ namespace HomeTry.Controllers
                 var data = await _litterRepository.ReadAsync();
                 return Ok(data);
             }
-        }
-
-        [HttpGet]
-        public async Task<IEnumerable> GetCategories()
-        {
-            List<string> categories = ["paper", "plastic", "biodegradable", "cardboard", "glass", "metal"];
-
-            return categories;
         }
     }
 }
