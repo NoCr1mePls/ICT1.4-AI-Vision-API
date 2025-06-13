@@ -1,31 +1,28 @@
-using ICT1._4_AI_Vision_API.Repositories;
-using ICT1._4_AI_Vision_API.Data;
-using ICT1._4_AI_Vision_API.Interfaces;
+using HomeTry.Repositories;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
+using HomeTry.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-        options.JsonSerializerOptions.WriteIndented = true;
-    });
+// Add services to the container.
 
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<LitterDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
 
-builder.Services.AddScoped<ILitterRepository, LitterRepository>();
+if (string.IsNullOrWhiteSpace(sqlConnectionString))
+    throw new InvalidProgramException("Configuration variable SqlConnectionString not found");
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<ILitterRepository, LitterRepository>(o => new LitterRepository(sqlConnectionString));
 builder.Services.AddHttpClient();
-
+builder.Services.AddControllers();
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,5 +34,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/", () => $"The API is up . Connection string found: {((!string.IsNullOrEmpty(sqlConnectionString)) ? "y" : "n")}");
 
 app.Run();
