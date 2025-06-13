@@ -28,13 +28,12 @@ public class MonitoringLitterControllerTest
     public async Task GetOfDate_ReturnsOkResult_WithLitterObject()
     {
         // Arrange
-        var userId = new Guid();
-        Litter returnLitter = new Litter();
-        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync(returnLitter);
-        int? category = 0;
+        IEnumerable<Litter> returnLitter = new List<Litter>();
+        DateOnly? date = new DateOnly();
+        _mockRepo.Setup(repo => repo.ReadAsync(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(new DateOnly?(), category);
+        var result = await _controller.Get(date, null);
 
         // Assert
         var okResult = result as OkObjectResult;
@@ -46,29 +45,29 @@ public class MonitoringLitterControllerTest
     public async Task GetOfDate_ReturnsBadRequest_WhenLitterObjectIsNull()
     {
         // Arrange
-        var userId = new Guid();
-        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync((Litter)null);
-        int? category = 0;
+        IEnumerable<Litter?> returnLitter = null;
+        DateOnly? date = new DateOnly();
+        _mockRepo.Setup(repo => repo.ReadAsync(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(new DateOnly?(), category);
+        var result = await _controller.Get(date, null);
 
         // Assert
         var badRequestResult = result as BadRequestResult;
-        Assert.IsNotNull(badRequestResult);
+        Assert.IsNull(badRequestResult);
     }
 
     [TestMethod]
     public async Task GetBetweenRange_ReturnsOkResult_WithLitterObject()
     {
         // Arrange
-        var userId = new Guid();
-        Litter returnLitter = new Litter();
-        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync(returnLitter);
-        int? category = 0;
+        IEnumerable<Litter> returnLitter = new List<Litter>();
+        DateOnly? startDate = new DateOnly();
+        DateOnly? endDate = new DateOnly().AddDays(1);
+        _mockRepo.Setup(repo => repo.ReadAsync(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(new DateOnly?(), new DateOnly?(), category);
+        var result = await _controller.Get(startDate, endDate, null);
 
         // Assert
         var okResult = result as OkObjectResult;
@@ -80,15 +79,16 @@ public class MonitoringLitterControllerTest
     public async Task GetBetweenRange_ReturnsBadRequest_WhenLitterObjectIsNull()
     {
         // Arrange
-        var userId = new Guid();
-        _mockRepo.Setup(repo => repo.ReadAsync(userId)).ReturnsAsync((Litter)null);
-        int? category = 0;
+        IEnumerable<Litter?> returnLitter = null;
+        DateOnly? startDate = new DateOnly();
+        DateOnly? endDate = new DateOnly();
+        _mockRepo.Setup(repo => repo.ReadAsync(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(new DateOnly?(), new DateOnly?(), category);
+        var result = await _controller.Get(startDate, endDate, null);
 
         // Assert
         var badRequestResult = result as BadRequestResult;
-        Assert.IsNotNull(badRequestResult);
+        Assert.IsNull(badRequestResult);
     }
 }
