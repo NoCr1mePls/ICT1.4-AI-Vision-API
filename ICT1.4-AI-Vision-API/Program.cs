@@ -1,10 +1,21 @@
 using HomeTry.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using HomeTry.Data;
 using HomeTry.Interfaces;
+
+// Add services to the container.
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddControllers()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+		options.JsonSerializerOptions.WriteIndented = true;
+	});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -16,8 +27,11 @@ var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionS
 if (string.IsNullOrWhiteSpace(sqlConnectionString))
     throw new InvalidProgramException("Configuration variable SqlConnectionString not found");
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddTransient<ILitterRepository, LitterRepository>(o => new LitterRepository(sqlConnectionString));
+builder.Services.AddDbContext<LitterDbContext>(options =>
+	options.UseSqlServer(sqlConnectionString));
+
+builder.Services.AddHttpContextAccessor(); 
+builder.Services.AddScoped<ILitterRepository, LitterRepository>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 var app = builder.Build();

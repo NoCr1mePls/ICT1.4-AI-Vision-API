@@ -1,7 +1,7 @@
-﻿using ICT1._4_AI_Vision_API.Models;
+﻿using HomeTry.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICT1._4_AI_Vision_API.Data
+namespace HomeTry.Data
 {
     public class LitterDbContext : DbContext
     {

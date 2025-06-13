@@ -1,9 +1,9 @@
-﻿using ICT1._4_AI_Vision_API.Data;
-using ICT1._4_AI_Vision_API.Interfaces;
-using ICT1._4_AI_Vision_API.Models;
+﻿using HomeTry.Data;
+using HomeTry.Interfaces;
+using HomeTry.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICT1._4_AI_Vision_API.Repositories
+namespace HomeTry.Repositories
 {
     public class LitterRepository : ILitterRepository
     {

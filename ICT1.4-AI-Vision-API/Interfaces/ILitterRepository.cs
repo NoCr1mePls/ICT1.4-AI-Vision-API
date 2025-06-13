@@ -1,6 +1,6 @@
-﻿using ICT1._4_AI_Vision_API.Models;
+﻿using HomeTry.Models;
 
-namespace ICT1._4_AI_Vision_API.Interfaces;
+namespace HomeTry.Interfaces;
 
 public interface ILitterRepository
 {

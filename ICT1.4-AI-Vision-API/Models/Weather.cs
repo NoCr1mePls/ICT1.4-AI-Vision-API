@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ICT1._4_AI_Vision_API.Models
+namespace HomeTry.Models
 {
     public class Weather
     {

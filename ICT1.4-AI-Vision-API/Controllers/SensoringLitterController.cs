@@ -1,10 +1,10 @@
-﻿using ICT1._4_AI_Vision_API.Models;
-using ICT1._4_AI_Vision_API.Interfaces;
+﻿using HomeTry.Models;
+using HomeTry.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 
-namespace ICT1._4_AI_Vision_API.Controllers
+namespace HomeTry._4_AI_Vision_API.Controllers
 {
     [ApiController]
     [Route("litter")]
