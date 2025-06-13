@@ -20,7 +20,7 @@ namespace HomeTry._4_AI_Vision_API.Controllers
             _litterRepository = litterRepository;
             _logger = logger;
             _httpClient = httpClientFactory.CreateClient();
-            _apiKey = configuration["WeatherApiKey"]; // Verwijst naar user secrets of appsettings.json
+            _apiKey = configuration.GetValue<string>("WeatherApiKey"); // Verwijst naar user secrets of appsettings.json
         }
 
         /// <summary>
