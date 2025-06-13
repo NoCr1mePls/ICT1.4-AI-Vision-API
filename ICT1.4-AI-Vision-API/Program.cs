@@ -35,4 +35,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/", () => $"The API is up . Connection string found: {((!string.IsNullOrEmpty(sqlConnectionString)) ? "y" : "n")}");
+
 app.Run();
