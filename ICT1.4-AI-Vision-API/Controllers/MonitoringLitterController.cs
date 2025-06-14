@@ -118,6 +118,11 @@ namespace HomeTry.Controllers
 
 			
 		}
+
+        /// <summary>
+        /// Retrieves a list of predefined waste material categories.
+        /// </summary>
+        /// <returns>a list</returns>
 		[HttpGet("Categories")]
 		public async Task<IActionResult> GetCategories()
 		{
