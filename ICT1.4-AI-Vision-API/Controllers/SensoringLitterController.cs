@@ -60,6 +60,10 @@ namespace HomeTry._4_AI_Vision_API.Controllers
             dynamic data = JsonConvert.DeserializeObject<dynamic>(content);
 
             litter.litter_id = Guid.NewGuid();
+            if(litter.detection_time == null)
+            {
+                litter.detection_time = DateTime.Now;
+            }
 
             if (litter.Weather == null)
             {

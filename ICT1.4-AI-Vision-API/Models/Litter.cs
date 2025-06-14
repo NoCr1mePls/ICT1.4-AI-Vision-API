@@ -21,7 +21,7 @@ namespace HomeTry.Models
         [Required]
         public double location_longitude { get; set; }
 
-        public DateTime detection_time { get; set; }
+        public DateTime? detection_time { get; set; }
 
         public Weather? Weather { get; set; }
     }
