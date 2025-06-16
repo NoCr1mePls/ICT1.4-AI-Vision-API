@@ -38,8 +38,7 @@ namespace HomeTry.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fout bij InsertAsync voor Litter ID {LitterId}", litter.litter_id);
-                throw;
+                throw new Exception($"Fout bij InsertAsync voor Litter ID {litter.litter_id}", ex);
             }
         }
 
