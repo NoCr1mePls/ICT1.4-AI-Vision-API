@@ -69,11 +69,25 @@ namespace HomeTry.Repositories
         /// </summary>
         /// <param name="startTime">The start time to filter from.</param>
         /// <returns>List of Litter entries.</returns>
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime)
+        public async Task<IEnumerable<Litter>> ReadAsyncStart(DateTime startTime)
         {
             return await _context.Litter
                 .Include(l => l.Weather)
                 .Where(l => l.detection_time >= startTime)
+                .OrderByDescending(l => l.detection_time)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Gets all Litter entries detected from a specific start time.
+        /// </summary>
+        /// <param name="stopTime">The stop time to filter from.</param>
+        /// <returns>List of Litter entries.</returns>
+        public async Task<IEnumerable<Litter>> ReadAsyncStop(DateTime stopTime)
+        {
+            return await _context.Litter
+                .Include(l => l.Weather)
+                .Where(l => l.detection_time <= stopTime)
                 .OrderByDescending(l => l.detection_time)
                 .ToListAsync();
         }

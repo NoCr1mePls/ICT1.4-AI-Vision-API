@@ -24,7 +24,7 @@ namespace HomeTry.Controllers
         /// If no date is provided, today's date is used by default.
         /// </summary>
         /// <param name="date">The optional date to filter litter records.</param>
-        /// <param name="cat">The optional litter classification to filter the records by.</param>
+        /// <param name="classification">The optional litter classification to filter the records by.</param>
         /// <returns>https status codes + a filtered list of litter records</returns>
         [HttpGet("today", Name = "today")]
         public async Task<IActionResult> Get([FromQuery] DateOnly? date, [FromQuery] int? classification)
@@ -71,7 +71,7 @@ namespace HomeTry.Controllers
         /// </summary>
         /// <param name="beginDate">The optional start date to filter records by.</param>
         /// <param name="endDate">The optional end date to filter records to by.</param>
-        /// <param name="cat">The optional litter classification to filter the records by.</param>
+        /// <param name="classification">The optional litter classification to filter the records by.</param>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DateOnly? beginDate, [FromQuery] DateOnly? endDate, [FromQuery] int? classification)
         {
@@ -102,7 +102,14 @@ namespace HomeTry.Controllers
             {
                 DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
 
-                var data = await _litterRepository.ReadAsync(startDateTime);
+                var data = await _litterRepository.ReadAsyncStart(startDateTime);
+                return Ok(data);
+            }
+            if (endDate.HasValue)
+            {
+                DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MinValue);
+
+                var data = await _litterRepository.ReadAsyncStop(endDateTime);
                 return Ok(data);
             }
             if (classification.HasValue)

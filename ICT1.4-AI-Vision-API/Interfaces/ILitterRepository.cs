@@ -10,9 +10,10 @@ public interface ILitterRepository
 
      Task<Litter?> ReadAsync(Guid id);
 
-     Task<IEnumerable<Litter>> ReadAsync(DateTime startTime);
+    Task<IEnumerable<Litter>> ReadAsyncStart(DateTime startTime);
+    Task<IEnumerable<Litter>> ReadAsyncStop(DateTime startTime);
 
-     Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, int litterClassification);
+    Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, int litterClassification);
 
      Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime);
 
