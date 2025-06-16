@@ -29,40 +29,48 @@ namespace HomeTry.Controllers
         [HttpGet("today", Name = "today")]
         public async Task<IActionResult> Get([FromQuery] DateOnly? date, [FromQuery] int? classification)
         {
-            if (date.HasValue && classification.HasValue)
+            try
             {
-                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
-                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+                if (date.HasValue && classification.HasValue)
+                {
+                    DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                    DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
 
-                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
-                return Ok(data);
+                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
+                    return Ok(data);
+                }
+                if (date.HasValue)
+                {
+                    DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                    DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
+                    return Ok(data);
+                }
+                if (classification.HasValue)
+                {
+                    date = DateOnly.FromDateTime(DateTime.Now);
+
+                    DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                    DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
+                    return Ok(data);
+                }
+                else
+                {
+                    date = DateOnly.FromDateTime(DateTime.Now);
+                    DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                    DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
+                    return Ok(data);
+                }
             }
-            if (date.HasValue)
+            catch (Exception ex)
             {
-                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
-                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
-
-                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
-                return Ok(data);
-            }
-            if (classification.HasValue)
-            {
-                date = DateOnly.FromDateTime(DateTime.Now);
-
-                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
-                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
-
-                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
-                return Ok(data);
-            }
-            else
-            {
-                date = DateOnly.FromDateTime(DateTime.Now);
-                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
-                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
-
-                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
-                return Ok(data);
+                _logger.LogError(ex, "Fout bij ophalen van gegevens.");
+                return StatusCode(500, new { Message = "Er is een fout opgetreden bij het ophalen van de gegevens." });
             }
         }
 
@@ -75,67 +83,80 @@ namespace HomeTry.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] DateOnly? beginDate, [FromQuery] DateOnly? endDate, [FromQuery] int? classification)
         {
-            if (beginDate.HasValue && endDate.HasValue && classification.HasValue)
+            try
             {
-                DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
-                DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MaxValue);
+                if (beginDate.HasValue && endDate.HasValue && classification.HasValue)
+                {
+                    DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
+                    DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MaxValue);
 
-                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
-                return Ok(data);
-            }
-            if (beginDate.HasValue && endDate.HasValue)
-            {
-                DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
-                DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MaxValue);
+                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
+                    return Ok(data);
+                }
+                if (beginDate.HasValue && endDate.HasValue)
+                {
+                    DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
+                    DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MaxValue);
 
-                var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
-                return Ok(data);
-            }
-            if (beginDate.HasValue && classification.HasValue)
-            {
-                DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
+                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
+                    return Ok(data);
+                }
+                if (beginDate.HasValue && classification.HasValue)
+                {
+                    DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
 
-                var data = await _litterRepository.ReadAsync(startDateTime, classification.Value);
-                return Ok(data);
-            }
-            if (beginDate.HasValue)
-            {
-                DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
+                    var data = await _litterRepository.ReadAsync(startDateTime, classification.Value);
+                    return Ok(data);
+                }
+                if (beginDate.HasValue)
+                {
+                    DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
 
-                var data = await _litterRepository.ReadAsyncStart(startDateTime);
-                return Ok(data);
-            }
-            if (endDate.HasValue)
-            {
-                DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MinValue);
+                    var data = await _litterRepository.ReadAsyncStart(startDateTime);
+                    return Ok(data);
+                }
+                if (endDate.HasValue)
+                {
+                    DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MinValue);
 
-                var data = await _litterRepository.ReadAsyncStop(endDateTime);
-                return Ok(data);
+                    var data = await _litterRepository.ReadAsyncStop(endDateTime);
+                    return Ok(data);
+                }
+                if (classification.HasValue)
+                {
+                    var data = await _litterRepository.ReadAsync(classification.Value);
+                    return Ok(data);
+                }
+                else
+                {
+                    var data = await _litterRepository.ReadAsync();
+                    return Ok(data);
+                }
             }
-            if (classification.HasValue)
+            catch (Exception ex)
             {
-                var data = await _litterRepository.ReadAsync(classification.Value);
-                return Ok(data);
+                _logger.LogError(ex, "Fout bij ophalen van gegevens.");
+                return StatusCode(500, new { Message = "Er is een fout opgetreden bij het ophalen van de gegevens." });
             }
-            else
-            {
-                var data = await _litterRepository.ReadAsync();
-                return Ok(data);
-            }
-
-			
-		}
+        }
 
         /// <summary>
         /// Retrieves a list of predefined waste material categories.
         /// </summary>
         /// <returns>a list</returns>
-		[HttpGet("Categories")]
-		public async Task<IActionResult> GetCategories()
-		{
-			List<string> categories = ["paper", "plastic", "biodegradable", "cardboard", "glass", "metal"];
-
-			return Ok(categories);
-		}
-	}
+        [HttpGet("Categories")]
+        public async Task<IActionResult> GetCategories()
+        {
+            try
+            {
+                List<string> categories = ["paper", "plastic", "biodegradable", "cardboard", "glass", "metal"];
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fout bij ophalen van categorieën.");
+                return StatusCode(500, new { Message = "Er is een fout opgetreden bij het ophalen van de categorieën." });
+            }
+        }
+    }
 }
