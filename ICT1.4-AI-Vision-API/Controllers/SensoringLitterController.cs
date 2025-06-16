@@ -15,7 +15,11 @@ namespace HomeTry._4_AI_Vision_API.Controllers
         private readonly string _apiKey;
         private readonly ILogger<SensoringLitterController> _logger;
 
-        public SensoringLitterController(ILitterRepository litterRepository, ILogger<SensoringLitterController> logger, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+        public SensoringLitterController(
+            ILitterRepository litterRepository,
+            ILogger<SensoringLitterController> logger,
+            IHttpClientFactory httpClientFactory,
+            IConfiguration configuration)
         {
             _litterRepository = litterRepository;
             _logger = logger;
@@ -33,32 +37,29 @@ namespace HomeTry._4_AI_Vision_API.Controllers
         {
             try
             {
-                bool IsInvalid(double? value) => value == null || value == 0;
-
-                if (IsInvalid(litter.location_latitude) && IsInvalid(litter.location_longitude))
+                if ((litter.location_latitude == null || litter.location_latitude == 0) &&
+                    (litter.location_longitude == null || litter.location_longitude == 0))
                 {
-                    return BadRequest(new { error = "Both latitude and longitude are missing or zero." });
+                    return BadRequest(new { error = "Zowel latitude als longitude ontbreken of zijn ongeldig." });
                 }
-                else if (IsInvalid(litter.location_latitude))
+                else if (litter.location_latitude == null || litter.location_latitude == 0)
                 {
-                    return BadRequest(new { error = "Latitude is missing or zero." });
+                    return BadRequest(new { error = "Latitude ontbreekt of is ongeldig." });
                 }
-                else if (IsInvalid(litter.location_longitude))
+                else if (litter.location_longitude == null || litter.location_longitude == 0)
                 {
-                    return BadRequest(new { error = "Longitude is missing or zero." });
+                    return BadRequest(new { error = "Longitude ontbreekt of is ongeldig." });
                 }
 
                 string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
 
-                // Maak request naar de API
                 HttpResponseMessage response = await _httpClient.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogError("Weather API call failed with status code {StatusCode}", response.StatusCode);
-                    return StatusCode((int)response.StatusCode, new { error = "Weather API failed." });
+                    return StatusCode((int)response.StatusCode, new { error = "Weather API mislukt." });
                 }
 
-                // Lees response en parse JSON
                 string content = await response.Content.ReadAsStringAsync();
                 dynamic data = JsonConvert.DeserializeObject<dynamic>(content);
 
@@ -73,16 +74,13 @@ namespace HomeTry._4_AI_Vision_API.Controllers
                     litter.Weather = new Weather();
                 }
 
-                // Vul weather model data in
                 litter.Weather.weather_id = litter.litter_id;
                 litter.Weather.temperature_celsius = data.current?.temp_c;
                 litter.Weather.humidity = data.current?.humidity;
                 litter.Weather.conditions = data.current?.condition?.text;
 
-                // Verstuur naar database via de repository
                 var createdRecord = await _litterRepository.InsertAsync(litter, litter.Weather);
 
-                // Return status en model
                 return CreatedAtAction(nameof(Get), new { id = litter.litter_id }, litter);
             }
             catch (Exception ex)
