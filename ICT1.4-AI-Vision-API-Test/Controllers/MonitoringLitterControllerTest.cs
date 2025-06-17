@@ -1,14 +1,13 @@
 using Moq;
 using Microsoft.AspNetCore.Mvc;
-using HomeTry.Controllers;
-using HomeTry.Interfaces;
-using HomeTry.Repositories;
-using HomeTry.Models;
+using SensoringApi.Controllers;
+using SensoringApi.Interfaces;
+using SensoringApi.Repositories;
+using SensoringApi.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace HomeTry._4_AI_Vision_API_Test;
-
+namespace SensoringApi.Test;
 [TestClass]
 public class MonitoringLitterControllerTest
 {

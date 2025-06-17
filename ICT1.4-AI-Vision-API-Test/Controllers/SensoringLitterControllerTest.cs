@@ -1,9 +1,9 @@
-using HomeTry.Controllers;
-using HomeTry.Interfaces;
+using SensoringApi.Controllers;
+using SensoringApi.Interfaces;
 using Moq;
 using Microsoft.Extensions.Logging;
-using HomeTry._4_AI_Vision_API.Controllers;
-using HomeTry.Models;
+
+using SensoringApi.Models;
 using Newtonsoft.Json;
 using Moq.Protected;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +13,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace HomeTry._4_AI_Vision_API_Test;
+namespace SensoringApi.Test;
 
 [TestClass]
 public class SensoringLitterControllerTest
