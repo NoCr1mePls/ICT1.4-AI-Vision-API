@@ -3,6 +3,8 @@ using HomeTry.Interfaces;
 using HomeTry.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using SensoringApi.Classes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HomeTry.Controllers
 {
@@ -12,6 +14,7 @@ namespace HomeTry.Controllers
     {
         private readonly ILitterRepository _litterRepository;
         private readonly ILogger<MonitoringLitterController> _logger;
+        MaxRange test = new MaxRange();
 
         public MonitoringLitterController(ILitterRepository litterRepository, ILogger<MonitoringLitterController> logger)
         {
@@ -33,16 +36,25 @@ namespace HomeTry.Controllers
             {
                 if (date.HasValue && classification.HasValue)
                 {
+                    test.DateAllowed(null, date);
                     DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
                     DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+                    if (!test.DateAllowed(null, date)) 
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
-                    var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
+                        var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
                     return Ok(data);
                 }
                 if (date.HasValue)
                 {
                     DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
                     DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+                    if (!test.DateAllowed(null, date))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
                     return Ok(data);
@@ -53,6 +65,10 @@ namespace HomeTry.Controllers
 
                     DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
                     DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+                    if (!test.DateAllowed(null, date))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
                     return Ok(data);
@@ -62,6 +78,10 @@ namespace HomeTry.Controllers
                     date = DateOnly.FromDateTime(DateTime.Now);
                     DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
                     DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+                    if (!test.DateAllowed(null, date))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
                     return Ok(data);
@@ -89,6 +109,10 @@ namespace HomeTry.Controllers
                 {
                     DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
                     DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MaxValue);
+                    if (!test.DateAllowed(null, beginDate) || !test.DateAllowed(null, endDate))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsync(startDateTime, endDateTime, classification.Value);
                     return Ok(data);
@@ -97,6 +121,10 @@ namespace HomeTry.Controllers
                 {
                     DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
                     DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MaxValue);
+                    if (!test.DateAllowed(null, beginDate) || !test.DateAllowed(null, endDate))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
                     return Ok(data);
@@ -104,6 +132,10 @@ namespace HomeTry.Controllers
                 if (beginDate.HasValue && classification.HasValue)
                 {
                     DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
+                    if (!test.DateAllowed(null, beginDate))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsync(startDateTime, classification.Value);
                     return Ok(data);
@@ -111,6 +143,10 @@ namespace HomeTry.Controllers
                 if (beginDate.HasValue)
                 {
                     DateTime startDateTime = beginDate.Value.ToDateTime(TimeOnly.MinValue);
+                    if (!test.DateAllowed(null, beginDate))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsyncStart(startDateTime);
                     return Ok(data);
@@ -118,6 +154,10 @@ namespace HomeTry.Controllers
                 if (endDate.HasValue)
                 {
                     DateTime endDateTime = endDate.Value.ToDateTime(TimeOnly.MinValue);
+                    if (!test.DateAllowed(null, endDate))
+                    {
+                        return BadRequest(new { error = $"Date('s) not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
 
                     var data = await _litterRepository.ReadAsyncStop(endDateTime);
                     return Ok(data);
