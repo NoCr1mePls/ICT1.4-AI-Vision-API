@@ -73,17 +73,17 @@ namespace SensoringApi.Controllers
                         litter.detection_time = DateTime.Now;
                     }
 
-                    if (litter.Weather == null)
+                    if (litter.weather == null)
                     {
-                        litter.Weather = new Weather();
+                        litter.weather = new Weather();
                     }
 
-                    litter.Weather.weather_id = litter.litter_id;
-                    litter.Weather.temperature_celsius = data.current?.temp_c;
-                    litter.Weather.humidity = data.current?.humidity;
-                    litter.Weather.conditions = data.current?.condition?.text;
+                    litter.weather.weather_id = litter.litter_id;
+                    litter.weather.temperature_celsius = data.current?.temp_c;
+                    litter.weather.humidity = data.current?.humidity;
+                    litter.weather.conditions = data.current?.condition?.text;
 
-                    var createdRecord = await _litterRepository.InsertAsync(litter, litter.Weather);
+                    var createdRecord = await _litterRepository.InsertAsync(litter, litter.weather);
 
                     return CreatedAtAction(nameof(Get), new { id = litter.litter_id }, litter);
                 }

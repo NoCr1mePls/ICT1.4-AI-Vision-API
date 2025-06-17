@@ -3,6 +3,7 @@ using SensoringApi.Interfaces;
 using SensoringApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace SensoringApi.Controllers
 {
@@ -64,6 +65,7 @@ namespace SensoringApi.Controllers
                     DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
 
                     var data = await _litterRepository.ReadAsync(startDateTime, endDateTime);
+                    var test = JsonConvert.SerializeObject(data);
                     return Ok(data);
                 }
             }

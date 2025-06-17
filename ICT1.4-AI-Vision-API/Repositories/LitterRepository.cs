@@ -24,7 +24,7 @@ namespace SensoringApi.Repositories
                 if (litter.litter_id != weather.weather_id)
                     throw new ArgumentException("De IDs van Litter en Weather moeten gelijk zijn.");
 
-                litter.Weather = weather;
+                litter.weather = weather;
 
                 _context.Litter.Add(litter);
                 _context.Weather.Add(weather);
@@ -32,7 +32,7 @@ namespace SensoringApi.Repositories
                 await _context.SaveChangesAsync();
 
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .FirstOrDefaultAsync(l => l.litter_id == litter.litter_id)
                     ?? throw new InvalidOperationException("Litter niet gevonden na invoegen.");
             }
@@ -47,7 +47,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .OrderByDescending(l => l.detection_time)
                     .ToListAsync();
             }
@@ -62,7 +62,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .FirstOrDefaultAsync(l => l.litter_id == id);
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .Where(l => l.detection_time >= startTime)
                     .OrderByDescending(l => l.detection_time)
                     .ToListAsync();
@@ -92,7 +92,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .Where(l => l.detection_time <= stopTime)
                     .OrderByDescending(l => l.detection_time)
                     .ToListAsync();
@@ -108,7 +108,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .Where(l => l.detection_time >= startTime &&
                                 l.litter_classification == litterClassification)
                     .OrderByDescending(l => l.detection_time)
@@ -125,7 +125,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .Where(l => l.detection_time >= startTime &&
                                 l.detection_time <= stopTime)
                     .OrderByDescending(l => l.detection_time)
@@ -142,7 +142,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .Where(l => l.detection_time >= startTime &&
                                 l.detection_time <= stopTime &&
                                 l.litter_classification == litterClassification)
@@ -160,7 +160,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .Where(l => l.litter_classification == litterClassification)
                     .OrderByDescending(l => l.detection_time)
                     .ToListAsync();
