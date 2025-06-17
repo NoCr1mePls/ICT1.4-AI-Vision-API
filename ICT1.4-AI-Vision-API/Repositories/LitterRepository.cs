@@ -56,7 +56,7 @@ namespace SensoringApi.Repositories
             }
         }
 
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime? startTime, DateTime? stopTime, int? litterClassification)
+        public async Task<IEnumerable<Litter>> ReadAsyncRange(DateTime? startTime, DateTime? stopTime, int? litterClassification)
         {
             try
             {

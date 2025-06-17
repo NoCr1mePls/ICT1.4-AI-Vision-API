@@ -5,7 +5,7 @@ namespace SensoringApi.Interfaces;
 public interface ILitterRepository
 {
      Task<Litter> InsertAsync(Litter litter, Weather weather);
-     Task<Litter?> ReadAsync(Guid id);
-     Task<IEnumerable<Litter>> ReadAsync(DateTime? startTime, DateTime? stopTime, int? litterClassification);
+     Task<Litter?> ReadAsyncID(Guid id);
+     Task<IEnumerable<Litter>> ReadAsyncRange(DateTime? startTime, DateTime? stopTime, int? litterClassification);
 
 }

@@ -54,8 +54,8 @@ namespace SensoringApi.Controllers
                     filterClassification = classification.Value;
                 }
 
-                var data = await _litterRepository.ReadAsync(filterDateStart, filterDateEnd, classification.Value);
-                if(data == null)
+                var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification);
+                if (data == null)
                 {
                     return Ok(new { message = $"No Litter spotted for {filterDateStart.Value.ToString("yyyy-MM-dd")}" });
                 }
@@ -95,10 +95,10 @@ namespace SensoringApi.Controllers
                     filterClassification = classification.Value;
                 }
 
-                var data = await _litterRepository.ReadAsync(filterDateStart, filterDateEnd, classification.Value);
+                var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification);
                 if (data == null)
                 {
-                    return Ok(new { message = $"No Litter spotted for {filterDateStart.Value.ToString("yyyy-MM-dd")}" });
+                    return Ok(new { message = $"No Litter spotted between {filterDateStart.Value.ToString("yyyy-MM-dd")} & {filterDateEnd.Value.ToString("yyyy-MM-dd")}" });
                 }
                 return Ok(data);
             }
