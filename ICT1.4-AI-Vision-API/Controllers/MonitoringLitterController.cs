@@ -39,6 +39,10 @@ namespace SensoringApi.Controllers
                 int? filterClassification = null;
                 if(date.HasValue)
                 {
+                    if (!test.DateAllowed(null, date))
+                    {
+                        return BadRequest(new { error = $"{date.Value.ToString("yyyy-MM-dd")} not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
                     date = date.Value;
                     filterDateStart = date.Value.ToDateTime(TimeOnly.MinValue);
                     filterDateEnd = date.Value.ToDateTime(TimeOnly.MaxValue);
@@ -54,7 +58,7 @@ namespace SensoringApi.Controllers
                     filterClassification = classification.Value;
                 }
 
-                var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification);
+                var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification.Value);
                 if (data == null)
                 {
                     return Ok(new { message = $"No Litter spotted for {filterDateStart.Value.ToString("yyyy-MM-dd")}" });
@@ -84,10 +88,18 @@ namespace SensoringApi.Controllers
                 int? filterClassification = null;
                 if (beginDate.HasValue)
                 {
+                    if (!test.DateAllowed(null, beginDate))
+                    {
+                        return BadRequest(new { error = $"{beginDate.Value.ToString("yyyy-MM-dd")} not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
                     filterDateStart = beginDate.Value.ToDateTime(TimeOnly.MinValue);
                 }
                 if (endDate.HasValue)
                 {
+                    if (!test.DateAllowed(null, endDate))
+                    {
+                        return BadRequest(new { error = $"{endDate.Value.ToString("yyyy-MM-dd")} not allowed, a date needs to be between 2025-05-01 and {DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")} in order to be valid" });
+                    }
                     filterDateEnd = endDate.Value.ToDateTime(TimeOnly.MaxValue);
                 }
                 if (classification.HasValue)
@@ -95,7 +107,7 @@ namespace SensoringApi.Controllers
                     filterClassification = classification.Value;
                 }
 
-                var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification);
+                var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification.Value);
                 if (data == null)
                 {
                     return Ok(new { message = $"No Litter spotted between {filterDateStart.Value.ToString("yyyy-MM-dd")} & {filterDateEnd.Value.ToString("yyyy-MM-dd")}" });
