@@ -1,6 +1,6 @@
-﻿using HomeTry.Models;
-using HomeTry.Interfaces;
-using HomeTry.Repositories;
+﻿using SensoringApi.Models;
+using SensoringApi.Interfaces;
+using SensoringApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SensoringApi.Classes;

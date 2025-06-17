@@ -1,9 +1,9 @@
-﻿using HomeTry.Data;
-using HomeTry.Interfaces;
-using HomeTry.Models;
+﻿using SensoringApi.Data;
+using SensoringApi.Interfaces;
+using SensoringApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HomeTry.Repositories
+namespace SensoringApi.Repositories
 {
     public class LitterRepository : ILitterRepository
     {

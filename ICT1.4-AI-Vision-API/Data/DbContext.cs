@@ -1,7 +1,7 @@
-﻿using HomeTry.Models;
+﻿using SensoringApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HomeTry.Data
+namespace SensoringApi.Data
 {
     public class LitterDbContext : DbContext
     {

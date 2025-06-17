@@ -1,6 +1,6 @@
-﻿using HomeTry.Models;
+﻿using SensoringApi.Models;
 
-namespace HomeTry.Interfaces;
+namespace SensoringApi.Interfaces;
 
 public interface ILitterRepository
 {

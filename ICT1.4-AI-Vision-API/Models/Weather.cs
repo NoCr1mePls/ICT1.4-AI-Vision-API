@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HomeTry.Models
+namespace SensoringApi.Models
 {
     public class Weather
     {

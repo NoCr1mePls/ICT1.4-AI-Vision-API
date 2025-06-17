@@ -1,5 +1,5 @@
-﻿using HomeTry.Models;
-using HomeTry.Interfaces;
+﻿using SensoringApi.Models;
+using SensoringApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
