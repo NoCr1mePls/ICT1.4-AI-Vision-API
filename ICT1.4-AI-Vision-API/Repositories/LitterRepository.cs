@@ -42,22 +42,7 @@ namespace SensoringApi.Repositories
             }
         }
 
-        public async Task<IEnumerable<Litter>> ReadAsync()
-        {
-            try
-            {
-                return await _context.Litter
-                    .Include(l => l.Weather)
-                    .OrderByDescending(l => l.detection_time)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Fout bij ophalen van alle Litter items.", ex);
-            }
-        }
-
-        public async Task<Litter?> ReadAsync(Guid id)
+        public async Task<Litter?> ReadAsyncID(Guid id)
         {
             try
             {
@@ -71,104 +56,38 @@ namespace SensoringApi.Repositories
             }
         }
 
-        public async Task<IEnumerable<Litter>> ReadAsyncStart(DateTime startTime)
+        public async Task<IEnumerable<Litter>> ReadAsync(DateTime? startTime, DateTime? stopTime, int? litterClassification)
         {
             try
             {
-                return await _context.Litter
+                var query = _context.Litter
                     .Include(l => l.Weather)
-                    .Where(l => l.detection_time >= startTime)
+                    .AsQueryable();
+
+                if (startTime.HasValue)
+                {
+                    query = query.Where(l => l.detection_time >= startTime.Value);
+                }
+
+                if (stopTime.HasValue)
+                {
+                    query = query.Where(l => l.detection_time <= stopTime.Value);
+                }
+
+                if (litterClassification.HasValue)
+                {
+                    query = query.Where(l => l.litter_classification == litterClassification.Value);
+                }
+
+                return await query
                     .OrderByDescending(l => l.detection_time)
                     .ToListAsync();
             }
             catch (Exception ex)
             {
-                throw new Exception("Fout bij ophalen van Litter vanaf starttijd.", ex);
+                throw new Exception("Error retrieving Litter records with the specified filters.", ex);
             }
         }
 
-        public async Task<IEnumerable<Litter>> ReadAsyncStop(DateTime stopTime)
-        {
-            try
-            {
-                return await _context.Litter
-                    .Include(l => l.Weather)
-                    .Where(l => l.detection_time <= stopTime)
-                    .OrderByDescending(l => l.detection_time)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Fout bij ophalen van Litter tot stoptijd.", ex);
-            }
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, int litterClassification)
-        {
-            try
-            {
-                return await _context.Litter
-                    .Include(l => l.Weather)
-                    .Where(l => l.detection_time >= startTime &&
-                                l.litter_classification == litterClassification)
-                    .OrderByDescending(l => l.detection_time)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Fout bij ophalen van Litter op starttijd + classificatie.", ex);
-            }
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime)
-        {
-            try
-            {
-                return await _context.Litter
-                    .Include(l => l.Weather)
-                    .Where(l => l.detection_time >= startTime &&
-                                l.detection_time <= stopTime)
-                    .OrderByDescending(l => l.detection_time)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Fout bij ophalen van Litter tussen tijden.", ex);
-            }
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime, int litterClassification)
-        {
-            try
-            {
-                return await _context.Litter
-                    .Include(l => l.Weather)
-                    .Where(l => l.detection_time >= startTime &&
-                                l.detection_time <= stopTime &&
-                                l.litter_classification == litterClassification)
-                    .OrderByDescending(l => l.detection_time)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Fout bij ophalen van Litter tussen tijden + classificatie.", ex);
-            }
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(int litterClassification)
-        {
-            try
-            {
-                return await _context.Litter
-                    .Include(l => l.Weather)
-                    .Where(l => l.litter_classification == litterClassification)
-                    .OrderByDescending(l => l.detection_time)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Fout bij ophalen van Litter op classificatie.", ex);
-            }
-        }
     }
 }
