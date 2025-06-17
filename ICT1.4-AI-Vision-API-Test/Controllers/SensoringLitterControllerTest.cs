@@ -43,17 +43,22 @@ public class SensoringLitterControllerTest
         var httpClient = new HttpClient(new FakeHttpMessageHandler(responseJson, HttpStatusCode.OK));
         mockFactory.Setup(f => f.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
-        var mockConfig = new Mock<IConfiguration>();
-        var mockSection = new Mock<IConfigurationSection>();
-        mockSection.Setup(s => s.Value).Returns("fake");
-        mockConfig.Setup(c => c.GetSection("WeatherApiKey")).Returns(mockSection.Object);
+
+
+        var inMemorySettings = new Dictionary<string, string?>();
+        inMemorySettings.Add("SensorAccesToken", "test");
+        inMemorySettings.Add("WeatherApiKey", "fake");
+        IConfiguration configuration = new ConfigurationBuilder()
+			.AddInMemoryCollection(inMemorySettings)
+			.Build();
+       
 
         //Set up controller with al mocked dependenicies
         _controller = new SensoringLitterController(
             _mockRepo.Object,
             _mockLogger.Object,
             mockFactory.Object,
-            mockConfig.Object
+            configuration
         );
     }
 
@@ -70,9 +75,10 @@ public class SensoringLitterControllerTest
 
         _mockRepo.Setup(r => r.InsertAsync(It.IsAny<Litter>(), It.IsAny<Weather>()))
                  .ReturnsAsync(litter);
+        string token = "test";
 
         //Act
-        var result = await _controller.Add(litter);
+        var result = await _controller.Add(litter, token);
 
         //Assert
         Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
@@ -92,12 +98,13 @@ public class SensoringLitterControllerTest
             location_latitude = 0,
             location_longitude = 0
         };
+		string token = "test";
+		//Act
+		var result = await _controller.Add(litter,token);
 
-        //Act
-        var result = await _controller.Add(litter);
-
-        //Asserts
-        Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+		//Asserts
+		var badResult = result as BadRequestObjectResult;
+		Assert.IsNotNull(badResult);
     }
 
     /// <summary>
@@ -114,9 +121,9 @@ public class SensoringLitterControllerTest
             location_latitude = 0,
             location_longitude = 5
         };
-
-        //Act
-        var result = await _controller.Add(litter);
+		string token = "test";
+		//Act
+		var result = await _controller.Add(litter,token);
 
         //Assert
         Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
@@ -136,9 +143,9 @@ public class SensoringLitterControllerTest
             location_latitude = 5,
             location_longitude = 0
         };
-
-        //Act
-        var result = await _controller.Add(litter);
+		string token = "test";
+		//Act
+		var result = await _controller.Add(litter, token);
 
         //Assert
         Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
@@ -152,8 +159,8 @@ public class SensoringLitterControllerTest
     [TestMethod]
     public async Task Get_ReturnsNotFound_WhenLitterNotExists()
     {
-        //Arrange
-        var fakeId = Guid.NewGuid();
+		//Arrange
+		var fakeId = Guid.NewGuid();
         _mockRepo.Setup(r => r.ReadAsync(fakeId)).ReturnsAsync((Litter)null);
 
         //Act
@@ -203,9 +210,10 @@ public class SensoringLitterControllerTest
                 Assert.AreEqual("Sunny", w.conditions);
             })
             .ReturnsAsync(litter);
+		string token = "test";
 
-        //Act
-        var result = await _controller.Add(litter);
+		//Act
+		var result = await _controller.Add(litter,token);
 
         //Assert
         Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
@@ -227,16 +235,19 @@ public class SensoringLitterControllerTest
         var mockFactory = new Mock<IHttpClientFactory>();
         mockFactory.Setup(f => f.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
-        var mockConfig = new Mock<IConfiguration>();
-        var mockSection = new Mock<IConfigurationSection>();
-        mockSection.Setup(s => s.Value).Returns("fake");
-        mockConfig.Setup(c => c.GetSection("WeatherApiKey")).Returns(mockSection.Object);
+		var inMemorySettings = new Dictionary<string, string?>();
+		inMemorySettings.Add("SensorAccesToken", "test");
+		inMemorySettings.Add("WeatherApiKey", "fake");
+		IConfiguration configuration = new ConfigurationBuilder()
+			.AddInMemoryCollection(inMemorySettings)
+			.Build();
 
-        var controller = new SensoringLitterController(
-            _mockRepo.Object, _mockLogger.Object, mockFactory.Object, mockConfig.Object);
+		var controller = new SensoringLitterController(
+            _mockRepo.Object, _mockLogger.Object, mockFactory.Object, configuration);
+		string token = "test";
 
-        //Act
-        var result = await controller.Add(litter);
+		//Act
+		var result = await controller.Add(litter, token);
 
         //Assert
         var objResult = result as ObjectResult;

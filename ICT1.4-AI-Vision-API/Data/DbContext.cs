@@ -17,9 +17,7 @@ namespace SensoringApi.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Litter>()
-                .HasOne(l => l.Weather)
-                .WithOne(w => w.Litter)
-                .HasForeignKey<Weather>(w => w.weather_id); 
+                .HasOne(l => l.Weather);
 
             modelBuilder.Entity<Litter>()
                 .Property(l => l.litter_id)

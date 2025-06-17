@@ -14,6 +14,7 @@ namespace SensoringApi.Controllers
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
         private readonly ILogger<SensoringLitterController> _logger;
+        private readonly string _accesToken;
 
         public SensoringLitterController(
             ILitterRepository litterRepository,
@@ -25,6 +26,7 @@ namespace SensoringApi.Controllers
             _logger = logger;
             _httpClient = httpClientFactory.CreateClient();
             _apiKey = configuration.GetValue<string>("WeatherApiKey"); // Verwijst naar user secrets of appsettings.json
+            _accesToken = configuration.GetValue<string>("SensorAccesToken");
         }
 
         /// <summary>
@@ -33,61 +35,65 @@ namespace SensoringApi.Controllers
         /// <param name="litter">The JSON litter model that was filled in</param>
         /// <returns>HTTP status codes + JSON litter model</returns>
         [HttpPost]
-        public async Task<ActionResult> Add(Litter litter)
+        public async Task<ActionResult> Add([FromBody]Litter litter, [FromHeader]string token)
         {
-            try
+            if (token == _accesToken)
             {
-                if ((litter.location_latitude == null || litter.location_latitude == 0) &&
-                    (litter.location_longitude == null || litter.location_longitude == 0))
+                try
                 {
-                    return BadRequest(new { error = "Zowel latitude als longitude ontbreken of zijn ongeldig." });
+                    if ((litter.location_latitude == null || litter.location_latitude == 0) &&
+                        (litter.location_longitude == null || litter.location_longitude == 0))
+                    {
+                        return BadRequest(new { error = "Zowel latitude als longitude ontbreken of zijn ongeldig." });
+                    }
+                    else if (litter.location_latitude == null || litter.location_latitude == 0)
+                    {
+                        return BadRequest(new { error = "Latitude ontbreekt of is ongeldig." });
+                    }
+                    else if (litter.location_longitude == null || litter.location_longitude == 0)
+                    {
+                        return BadRequest(new { error = "Longitude ontbreekt of is ongeldig." });
+                    }
+
+                    string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
+
+                    HttpResponseMessage response = await _httpClient.GetAsync(url);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        _logger.LogError("Weather API call failed with status code {StatusCode}", response.StatusCode);
+                        return StatusCode((int)response.StatusCode, new { error = "Weather API mislukt." });
+                    }
+
+                    string content = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject<dynamic>(content);
+
+                    litter.litter_id = Guid.NewGuid();
+                    if (litter.detection_time == null)
+                    {
+                        litter.detection_time = DateTime.Now;
+                    }
+
+                    if (litter.Weather == null)
+                    {
+                        litter.Weather = new Weather();
+                    }
+
+                    litter.Weather.weather_id = litter.litter_id;
+                    litter.Weather.temperature_celsius = data.current?.temp_c;
+                    litter.Weather.humidity = data.current?.humidity;
+                    litter.Weather.conditions = data.current?.condition?.text;
+
+                    var createdRecord = await _litterRepository.InsertAsync(litter, litter.Weather);
+
+                    return CreatedAtAction(nameof(Get), new { id = litter.litter_id }, litter);
                 }
-                else if (litter.location_latitude == null || litter.location_latitude == 0)
+                catch (Exception ex)
                 {
-                    return BadRequest(new { error = "Latitude ontbreekt of is ongeldig." });
+                    _logger.LogError(ex, "Fout bij toevoegen van litter record.");
+                    return StatusCode(500,new { error = "Er is een interne serverfout opgetreden." });
                 }
-                else if (litter.location_longitude == null || litter.location_longitude == 0)
-                {
-                    return BadRequest(new { error = "Longitude ontbreekt of is ongeldig." });
-                }
-
-                string url = $"http://api.weatherapi.com/v1/current.json?key={_apiKey}&q={litter.location_latitude},{litter.location_longitude}";
-
-                HttpResponseMessage response = await _httpClient.GetAsync(url);
-                if (!response.IsSuccessStatusCode)
-                {
-                    _logger.LogError("Weather API call failed with status code {StatusCode}", response.StatusCode);
-                    return StatusCode((int)response.StatusCode, new { error = "Weather API mislukt." });
-                }
-
-                string content = await response.Content.ReadAsStringAsync();
-                dynamic data = JsonConvert.DeserializeObject<dynamic>(content);
-
-                litter.litter_id = Guid.NewGuid();
-                if (litter.detection_time == null)
-                {
-                    litter.detection_time = DateTime.Now;
-                }
-
-                if (litter.Weather == null)
-                {
-                    litter.Weather = new Weather();
-                }
-
-                litter.Weather.weather_id = litter.litter_id;
-                litter.Weather.temperature_celsius = data.current?.temp_c;
-                litter.Weather.humidity = data.current?.humidity;
-                litter.Weather.conditions = data.current?.condition?.text;
-
-                var createdRecord = await _litterRepository.InsertAsync(litter, litter.Weather);
-
-                return CreatedAtAction(nameof(Get), new { id = litter.litter_id }, litter);
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Fout bij toevoegen van litter record.");
-                return StatusCode(500, new { error = "Er is een interne serverfout opgetreden." });
-            }
+            else return BadRequest(new { error = "Er is een interne serverfout opgetreden." });
         }
 
         /// <summary>
@@ -110,7 +116,7 @@ namespace SensoringApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Fout bij ophalen van litter record met id {Id}.", id);
-                return StatusCode(500, new { error = "Er is een interne serverfout opgetreden." });
+                return BadRequest(new { error = "Er is een interne serverfout opgetreden." });
             }
         }
     }
