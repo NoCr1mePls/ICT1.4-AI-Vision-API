@@ -34,7 +34,31 @@ namespace SensoringApi.Controllers
         {
             try
             {
+                DateTime? filterDateStart = null;
+                DateTime? filterDateEnd = null;
+                int? filterClassification = null;
+                if(date.HasValue)
+                {
+                    date = date.Value;
+                }
+                else
+                {
+                    date = DateOnly.FromDateTime(DateTime.Now);
+                }
+                if (classification.HasValue)
+                {
+                    filterClassification = classification.Value;
+                }
                                 
+                DateTime startDateTime = date.Value.ToDateTime(TimeOnly.MinValue);
+                DateTime endDateTime = date.Value.ToDateTime(TimeOnly.MaxValue);
+
+                var data = await _litterRepository.ReadAsync(filterDateStart, filterDateEnd, classification.Value);
+                if(data == null)
+                {
+                    return Ok(new { message = $"No Litter spotted for {startDateTime.ToString("yyyy-MM-dd")}" });
+                }
+                return Ok(data);
             }
             catch (Exception ex)
             {
