@@ -17,12 +17,10 @@ namespace SensoringApi.Classes
                         
             if(dateTime > minDate && dateTime < maxDate)
             {
-                Console.WriteLine($"minDate: {minDate} < dateTime: {dateTime} < maxDate: {maxDate}");
                 return true;
             }
             else
             {
-                Console.WriteLine($"!(minDate: {minDate} < dateTime: {dateTime} < maxDate: {maxDate})");
                 return false;
             }
         }
