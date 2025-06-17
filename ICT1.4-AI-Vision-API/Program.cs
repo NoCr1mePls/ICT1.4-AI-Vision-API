@@ -1,9 +1,9 @@
-using HomeTry.Repositories;
+using SensoringApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using HomeTry.Data;
-using HomeTry.Interfaces;
+using SensoringApi.Data;
+using SensoringApi.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using System.Text.Json;

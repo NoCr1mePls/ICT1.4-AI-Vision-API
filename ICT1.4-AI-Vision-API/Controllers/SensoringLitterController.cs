@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 
-namespace HomeTry._4_AI_Vision_API.Controllers
+namespace SensoringApi.Controllers
 {
     [ApiController]
     [Route("litter")]

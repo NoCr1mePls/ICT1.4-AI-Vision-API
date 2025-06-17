@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 using SensoringApi.Classes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace HomeTry.Controllers
+namespace SensoringApi.Controllers
 {
     [ApiController]
     [Route("litter")]
@@ -189,7 +189,7 @@ namespace HomeTry.Controllers
         {
             try
             {
-                List<string> categories = ["paper", "plastic", "biodegradable", "cardboard", "glass", "metal"];
+                List<string> categories = ["plastic (0/5)", "contaminated (1)", "glass (2)", "metal (3)", "paper (4)"];
                 return Ok(categories);
             }
             catch (Exception ex)
