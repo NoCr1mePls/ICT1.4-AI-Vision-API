@@ -154,7 +154,7 @@ public class SensoringLitterControllerTest
     {
         //Arrange
         var fakeId = Guid.NewGuid();
-        _mockRepo.Setup(r => r.ReadAsync(fakeId)).ReturnsAsync((Litter)null);
+        _mockRepo.Setup(r => r.ReadAsyncID(fakeId)).ReturnsAsync((Litter)null);
 
         //Act
         var result = await _controller.Get(fakeId);
@@ -174,7 +174,7 @@ public class SensoringLitterControllerTest
         //Arrange
         var id = Guid.NewGuid();
         var litter = new Litter { litter_id = id };
-        _mockRepo.Setup(r => r.ReadAsync(id)).ReturnsAsync(litter);
+        _mockRepo.Setup(r => r.ReadAsyncID(id)).ReturnsAsync(litter);
 
         //Act
         var result = await _controller.Get(id);

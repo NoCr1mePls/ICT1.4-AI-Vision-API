@@ -27,12 +27,13 @@ public class MonitoringLitterControllerTest
     public async Task GetOfDate_ReturnsOkResult_WithLitterObject()
     {
         // Arrange
-        IEnumerable<Litter> returnLitter = new List<Litter>();
-        DateOnly? date = new DateOnly();
-        _mockRepo.Setup(repo => repo.ReadAsync(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        List<Litter> returnLitter = new List<Litter>();
+        returnLitter.Add(new Litter { location_latitude = 0, location_longitude = 0 });
+        DateOnly? date = new DateOnly(2025, 6, 14);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(date, null);
+        var result = await _controller.GetSingleDateData(date, null);
 
         // Assert
         var okResult = result as OkObjectResult;
@@ -46,10 +47,10 @@ public class MonitoringLitterControllerTest
         // Arrange
         IEnumerable<Litter?> returnLitter = null;
         DateOnly? date = new DateOnly();
-        _mockRepo.Setup(repo => repo.ReadAsync(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(date, null);
+        var result = await _controller.GetSingleDateData(date, null);
 
         // Assert
         var badRequestResult = result as BadRequestResult;
@@ -60,12 +61,13 @@ public class MonitoringLitterControllerTest
     public async Task GetOfDate_ReturnsOkResult_WithLitterObject_WhenDateIsInRange()
     {
         // Arrange
-        IEnumerable<Litter?> returnLitter = new List<Litter?>();
+        List<Litter> returnLitter = new List<Litter>();
+        returnLitter.Add(new Litter { location_latitude = 0, location_longitude = 0 });
         DateOnly? date = new DateOnly(2025, 6, 15);
-        _mockRepo.Setup(repo => repo.ReadAsync(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(date, null);
+        var result = await _controller.GetSingleDateData(date, null);
 
         // Assert
         var okResult = result as OkObjectResult;
@@ -79,10 +81,10 @@ public class MonitoringLitterControllerTest
         // Arrange
         IEnumerable<Litter?> returnLitter = null;
         DateOnly? date = new DateOnly(2030, 8, 14);
-        _mockRepo.Setup(repo => repo.ReadAsync(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(date.Value.ToDateTime(TimeOnly.MinValue), date.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(date, null);
+        var result = await _controller.GetRangeDateData(date, null, null);
 
         // Assert
         var badRequestResult = result as BadRequestResult;
@@ -93,13 +95,14 @@ public class MonitoringLitterControllerTest
     public async Task GetBetweenRange_ReturnsOkResult_WithLitterObject()
     {
         // Arrange
-        IEnumerable<Litter> returnLitter = new List<Litter>();
-        DateOnly? startDate = new DateOnly();
-        DateOnly? endDate = new DateOnly().AddDays(1);
-        _mockRepo.Setup(repo => repo.ReadAsync(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        List<Litter> returnLitter = new List<Litter>();
+        returnLitter.Add(new Litter { location_latitude = 0, location_longitude = 0 });
+        DateOnly? startDate = new DateOnly(2025, 6, 13);
+        DateOnly? endDate = new DateOnly(2025, 6, 17);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(startDate, endDate, null);
+        var result = await _controller.GetRangeDateData(startDate, endDate, null);
 
         // Assert
         var okResult = result as OkObjectResult;
@@ -114,10 +117,10 @@ public class MonitoringLitterControllerTest
         IEnumerable<Litter?> returnLitter = null;
         DateOnly? startDate = new DateOnly();
         DateOnly? endDate = new DateOnly();
-        _mockRepo.Setup(repo => repo.ReadAsync(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         // Act
-        var result = await _controller.Get(startDate, endDate, null);
+        var result = await _controller.GetRangeDateData(startDate, endDate, null);
 
         // Assert
         var badRequestResult = result as BadRequestResult;
@@ -131,10 +134,10 @@ public class MonitoringLitterControllerTest
         IEnumerable<Litter?> returnLitter = null;
         DateOnly? startDate = new DateOnly(1800, 1, 1);
         DateOnly? endDate = new DateOnly(1900, 12, 31);
-        _mockRepo.Setup(repo => repo.ReadAsync(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         //Act
-        var result = await _controller.Get(startDate, endDate, null);
+        var result = await _controller.GetRangeDateData(startDate, endDate, null);
 
         //Assert;
         var badRequestResult = result as BadRequestResult;
@@ -145,13 +148,14 @@ public class MonitoringLitterControllerTest
     public async Task GetBetweenRange_ReturnsOkResult_WithLitterObject_WhenDatesAreInRange()
     {
         // Arrange
-        IEnumerable<Litter?> returnLitter = new List<Litter?>();
-        DateOnly? startDate = new DateOnly(2025, 5, 1);
+        List<Litter> returnLitter = new List<Litter>();
+        returnLitter.Add(new Litter { location_latitude = 0, location_longitude = 0 });
+        DateOnly? startDate = new DateOnly(2025, 5, 2);
         DateOnly? endDate = new DateOnly(2025, 5, 5);
-        _mockRepo.Setup(repo => repo.ReadAsync(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue))).ReturnsAsync(returnLitter);
+        _mockRepo.Setup(repo => repo.ReadAsyncRange(startDate.Value.ToDateTime(TimeOnly.MinValue), endDate.Value.ToDateTime(TimeOnly.MaxValue), null)).ReturnsAsync(returnLitter);
 
         //Act
-        var result = await _controller.Get(startDate, endDate, null);
+        var result = await _controller.GetRangeDateData(startDate, endDate, null);
 
         //Assert
         var okResult = result as OkObjectResult;
