@@ -219,6 +219,23 @@ public class SensoringLitterControllerTest
         Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
     }
 
+    [TestMethod]
+    public async Task Add_WrongToken_ReturnsUnauthorized()
+    {
+        //Arrange
+        string token = "notTest";
+		var litter = new Litter { location_latitude = 50, location_longitude = 5 };
+
+        //Act
+        var result = await _controller.Add(litter, token);
+
+        //Assert
+        var unauthorizedRequest = result as UnauthorizedObjectResult;
+        Assert.IsNotNull(unauthorizedRequest);
+        Assert.IsInstanceOfType(result, typeof(UnauthorizedObjectResult));
+
+	}
+
     /// <summary>
     /// Tests that Add() returns 500 Internal Server Error if the Weather API fails.
     /// </summary>

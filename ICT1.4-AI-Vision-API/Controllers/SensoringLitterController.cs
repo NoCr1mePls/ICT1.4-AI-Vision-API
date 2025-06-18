@@ -93,7 +93,7 @@ namespace SensoringApi.Controllers
                     return StatusCode(500,new { error = "Er is een interne serverfout opgetreden." });
                 }
             }
-            else return BadRequest(new { error = "Er is een interne serverfout opgetreden." });
+            else return Unauthorized(new { error = "Er is een interne serverfout opgetreden." });
         }
 
         /// <summary>
