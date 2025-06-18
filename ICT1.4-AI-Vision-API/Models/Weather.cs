@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace HomeTry.Models
+namespace SensoringApi.Models
 {
     public class Weather
     {
@@ -16,7 +16,5 @@ namespace HomeTry.Models
 
         [Required]
         public string conditions { get; set; }
-
-        public Litter? Litter { get; set; }
     }
 }

@@ -1,9 +1,9 @@
-﻿using HomeTry.Data;
-using HomeTry.Interfaces;
-using HomeTry.Models;
+﻿using SensoringApi.Data;
+using SensoringApi.Interfaces;
+using SensoringApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HomeTry.Repositories
+namespace SensoringApi.Repositories
 {
     public class LitterRepository : ILitterRepository
     {
@@ -14,86 +14,80 @@ namespace HomeTry.Repositories
             _context = context;
         }
 
-        /// <summary>
-        /// Inserts a litter record with its matching weather record (same Guid).
-        /// </summary>
         public async Task<Litter> InsertAsync(Litter litter, Weather weather)
         {
-            if (litter.litter_id != weather.weather_id)
-                throw new ArgumentException("De IDs van Litter en Weather moeten gelijk zijn.");
+            try
+            {
+                if (litter == null || weather == null)
+                    throw new ArgumentNullException("Litter of Weather mag niet null zijn.");
 
-            // Koppel Weather aan Litter
-            litter.Weather = weather;
+                if (litter.litter_id != weather.weather_id)
+                    throw new ArgumentException("De IDs van Litter en Weather moeten gelijk zijn.");
 
-            // Voeg beide records toe
-            _context.Litter.Add(litter);
-            _context.Weather.Add(weather);
+                litter.weather = weather;
 
-            await _context.SaveChangesAsync();
+                _context.Litter.Add(litter);
+                _context.Weather.Add(weather);
 
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .FirstOrDefaultAsync(l => l.litter_id == litter.litter_id);
+                await _context.SaveChangesAsync();
+
+                return await _context.Litter
+                    .Include(l => l.weather)
+                    .FirstOrDefaultAsync(l => l.litter_id == litter.litter_id)
+                    ?? throw new InvalidOperationException("Litter niet gevonden na invoegen.");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Fout bij InsertAsync voor Litter ID {litter.litter_id}", ex);
+            }
         }
 
-        public async Task<IEnumerable<Litter>> ReadAsync()
+        public async Task<Litter?> ReadAsyncID(Guid id)
         {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .OrderByDescending(l => l.detection_time)
-                .ToListAsync();
+            try
+            {
+                return await _context.Litter
+                    .Include(l => l.weather)
+                    .FirstOrDefaultAsync(l => l.litter_id == id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Fout bij ophalen van Litter met ID {id}.", ex);
+            }
         }
 
-        public async Task<Litter?> ReadAsync(Guid id)
+        public async Task<IEnumerable<Litter>> ReadAsyncRange(DateTime? startTime, DateTime? stopTime, int? litterClassification)
         {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .FirstOrDefaultAsync(l => l.litter_id == id);
+            try
+            {
+                var query = _context.Litter
+                    .Include(l => l.weather)
+                    .AsQueryable();
+
+                if (startTime.HasValue)
+                {
+                    query = query.Where(l => l.detection_time >= startTime.Value);
+                }
+
+                if (stopTime.HasValue)
+                {
+                    query = query.Where(l => l.detection_time <= stopTime.Value);
+                }
+
+                if (litterClassification.HasValue)
+                {
+                    query = query.Where(l => l.litter_classification == litterClassification.Value);
+                }
+
+                return await query
+                    .OrderByDescending(l => l.detection_time)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error retrieving Litter records with the specified filters.", ex);
+            }
         }
 
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime)
-        {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .Where(l => l.detection_time >= startTime)
-                .OrderByDescending(l => l.detection_time)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, int litterClassification)
-        {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .Where(l => l.detection_time >= startTime && l.litter_classification == litterClassification)
-                .OrderByDescending(l => l.detection_time)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime)
-        {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .Where(l => l.detection_time >= startTime && l.detection_time <= stopTime)
-                .OrderByDescending(l => l.detection_time)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(DateTime startTime, DateTime stopTime, int litterClassification)
-        {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .Where(l => l.detection_time >= startTime && l.detection_time <= stopTime && l.litter_classification == litterClassification)
-                .OrderByDescending(l => l.detection_time)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Litter>> ReadAsync(int litterClassification)
-        {
-            return await _context.Litter
-                .Include(l => l.Weather)
-                .Where(l => l.litter_classification == litterClassification)
-                .OrderByDescending(l => l.detection_time)
-                .ToListAsync();
-        }
     }
 }

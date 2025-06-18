@@ -1,7 +1,7 @@
-﻿using HomeTry.Models;
+﻿using SensoringApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HomeTry.Data
+namespace SensoringApi.Data
 {
     public class LitterDbContext : DbContext
     {
@@ -16,12 +16,15 @@ namespace HomeTry.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Litter>()
-                .HasOne(l => l.Weather)
-                .WithOne(w => w.Litter)
+
+			modelBuilder.Entity<Litter>()
+
+                .HasOne(l => l.weather)
+                .WithOne()
                 .HasForeignKey<Weather>(w => w.weather_id); 
 
             modelBuilder.Entity<Litter>()
+
                 .Property(l => l.litter_id)
                 .ValueGeneratedNever();
 

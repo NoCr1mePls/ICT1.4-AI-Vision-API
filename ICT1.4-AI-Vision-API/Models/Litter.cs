@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 
-namespace HomeTry.Models
+namespace SensoringApi.Models
 {
     public class Litter
     {
@@ -23,6 +23,6 @@ namespace HomeTry.Models
 
         public DateTime? detection_time { get; set; }
 
-        public Weather? Weather { get; set; }
+        public Weather? weather { get; set; }
     }
 }
