@@ -17,6 +17,8 @@ namespace SensoringApi.Models
         [Required]
         public string conditions { get; set; }
 
-        public Litter? Litter { get; set; }
+        public Litter litter { get; set; }
+
+
     }
 }

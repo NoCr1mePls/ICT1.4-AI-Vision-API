@@ -23,6 +23,6 @@ namespace SensoringApi.Models
 
         public DateTime? detection_time { get; set; }
 
-        public Weather? Weather { get; set; }
+        public Weather? weather { get; set; }
     }
 }
