@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SensoringApi.Classes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SensoringApi.Controllers
 {
@@ -59,7 +60,7 @@ namespace SensoringApi.Controllers
                 }
 
                 var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification);
-                if (data == null)
+                if (data == null || !data.Any())
                 {
                     return Ok(new { message = $"No Litter spotted for {filterDateStart.Value.ToString("yyyy-MM-dd")}" });
                 }
@@ -108,7 +109,7 @@ namespace SensoringApi.Controllers
                 }
 
                 var data = await _litterRepository.ReadAsyncRange(filterDateStart, filterDateEnd, filterClassification);
-                if (data == null)
+                if (data == null || !data.Any())
                 {
                     return Ok(new { message = $"No Litter spotted between {filterDateStart.Value.ToString("yyyy-MM-dd")} & {filterDateEnd.Value.ToString("yyyy-MM-dd")}" });
                 }
