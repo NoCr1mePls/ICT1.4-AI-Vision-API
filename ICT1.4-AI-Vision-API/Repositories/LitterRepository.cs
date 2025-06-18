@@ -47,7 +47,7 @@ namespace SensoringApi.Repositories
             try
             {
                 return await _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .FirstOrDefaultAsync(l => l.litter_id == id);
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace SensoringApi.Repositories
             try
             {
                 var query = _context.Litter
-                    .Include(l => l.Weather)
+                    .Include(l => l.weather)
                     .AsQueryable();
 
                 if (startTime.HasValue)

@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using SensoringApi.Classes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.RegularExpressions;
 
 namespace SensoringApi.Controllers
 {

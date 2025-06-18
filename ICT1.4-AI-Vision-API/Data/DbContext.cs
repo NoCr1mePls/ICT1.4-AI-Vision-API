@@ -16,12 +16,15 @@ namespace SensoringApi.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Litter>()
-                .HasOne(l => l.Weather)
+
+			modelBuilder.Entity<Litter>()
+
+                .HasOne(l => l.weather)
                 .WithOne()
                 .HasForeignKey<Weather>(w => w.weather_id); 
 
             modelBuilder.Entity<Litter>()
+
                 .Property(l => l.litter_id)
                 .ValueGeneratedNever();
 
