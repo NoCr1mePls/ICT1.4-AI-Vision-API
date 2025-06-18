@@ -106,7 +106,7 @@ namespace SensoringApi.Controllers
         {
             try
             {
-                var litter = await _litterRepository.ReadAsync(id);
+                var litter = await _litterRepository.ReadAsyncID(id);
                 if (litter == null)
                 {
                     return NotFound();
