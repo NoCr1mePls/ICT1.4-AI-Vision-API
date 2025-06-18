@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using SensoringApi.Classes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Text.RegularExpressions;
 
 namespace SensoringApi.Controllers
 {
@@ -189,7 +190,7 @@ namespace SensoringApi.Controllers
         {
             try
             {
-                List<string> categories = ["plastic (0/5)", "contaminated (1)", "glass (2)", "metal (3)", "paper (4)"];
+                List<string> categories = ["0 battery", "1 cardboard", "2 glass", "3 metal", "4 organic", "5 paper", "6 plastic", "7 tissue"];
                 return Ok(categories);
             }
             catch (Exception ex)
