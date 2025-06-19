@@ -81,7 +81,7 @@ public class SensoringLitterControllerTest
         var result = await _controller.Add(litter, token);
 
         //Assert
-        Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
+        Assert.IsInstanceOfType(result, typeof(CreatedResult));
     }
 
     /// <summary>
@@ -216,7 +216,7 @@ public class SensoringLitterControllerTest
 		var result = await _controller.Add(litter,token);
 
         //Assert
-        Assert.IsInstanceOfType(result, typeof(CreatedAtActionResult));
+        Assert.IsInstanceOfType(result, typeof(CreatedResult));
     }
 
     [TestMethod]
