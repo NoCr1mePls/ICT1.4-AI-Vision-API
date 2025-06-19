@@ -85,7 +85,7 @@ namespace SensoringApi.Controllers
 
                     var createdRecord = await _litterRepository.InsertAsync(litter, litter.weather);
 
-                    return CreatedAtAction(nameof(Get), new { id = litter.litter_id }, litter);
+                    return Created();
                 }
                 catch (Exception ex)
                 {
