@@ -12,8 +12,8 @@ namespace SensoringApi.Classes
                 dateTime = dateOnly.Value.ToDateTime(TimeOnly.MaxValue);
             }
 
-            DateTime maxDate = DateTime.Today + TimeOnly.MaxValue.ToTimeSpan();
-            DateTime minDate = new DateTime(2025, 05, 02);
+            DateTime maxDate = DateTime.Today.AddDays(1);
+            DateTime minDate = new DateTime(2025, 05, 01);
                         
             if(dateTime > minDate && dateTime < maxDate)
             {
