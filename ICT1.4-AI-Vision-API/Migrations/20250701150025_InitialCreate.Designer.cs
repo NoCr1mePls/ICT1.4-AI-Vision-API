@@ -12,8 +12,8 @@ using SensoringApi.Data;
 namespace ICT1._4_AI_Vision_API.Migrations
 {
     [DbContext(typeof(LitterDbContext))]
-    [Migration("20250701132626_secondCreate")]
-    partial class secondCreate
+    [Migration("20250701150025_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
