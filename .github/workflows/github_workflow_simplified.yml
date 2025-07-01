@@ -74,13 +74,6 @@ jobs:
         name: ${{ env.ARTIFACT_NAME }}
         path: ${{ env.PUBLISH_DIRECTORY}}
         
-    - name: RUN ef
-      env:
-        CONN_STRING_PASSWORD: ${{ secrets.DB_CONNECTIONSTRING}}
-      run: |
-        dotnet tool install --global dotnet-ef
-        dotnet tool restore
-        dotnet tool database update -p ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj --connection "$CONN_STRING_PASSWORD"
 
   deploy:
     runs-on: ubuntu-latest
@@ -101,5 +94,13 @@ jobs:
         publish-profile: <publishData><publishProfile profileName="${{secrets.AZURE_WEBAPP_NAME}} - Zip Deploy" publishMethod="ZipDeploy" publishUrl="${{ secrets.AZURE_WEBAPP_NAME }}.scm.azurewebsites.net:443" userName="${{ secrets.AZURE_WEBAPP_PUBLISH_USERNAME }}" userPWD="${{ secrets.AZURE_WEBAPP_PUBLISH_PASSWORD }}" destinationAppUrl="http://${{ secrets.AZURE_WEBAPP_NAME }}.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>
         package: '${{ env.PUBLISH_DIRECTORY}}'
         clean: true
+  
+    - name: RUN ef
+      env:
+        CONN_STRING_PASSWORD: ${{ secrets.DB_CONNECTIONSTRING}}
+      run: |
+        dotnet tool install --global dotnet-ef
+        dotnet tool restore
+        dotnet tool database update -p ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj --connection "$CONN_STRING_PASSWORD"
         
 
