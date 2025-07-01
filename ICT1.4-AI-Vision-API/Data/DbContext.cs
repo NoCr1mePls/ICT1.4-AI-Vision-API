@@ -5,7 +5,7 @@ namespace SensoringApi.Data
 {
     public class LitterDbContext : DbContext
     {
-        public LitterDbContext(DbContextOptions options) : base(options)
+        public LitterDbContext(DbContextOptions<LitterDbContext> options) : base(options)
         {
         }
 

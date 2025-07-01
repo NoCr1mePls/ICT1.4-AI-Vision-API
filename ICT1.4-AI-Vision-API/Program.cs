@@ -6,6 +6,8 @@ using SensoringApi.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
 using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 // Add services to the container.
 
