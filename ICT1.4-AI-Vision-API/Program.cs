@@ -26,9 +26,6 @@ builder.Services.AddSwaggerGen();
 
 var sqlConnectionString = builder.Configuration.GetValue<string>("SqlConnectionString");
 
-if (string.IsNullOrWhiteSpace(sqlConnectionString))
-    throw new InvalidProgramException("Configuration variable SqlConnectionString not found");
-
 builder.Services.AddDbContext<LitterDbContext>(options =>
     options.UseSqlServer(sqlConnectionString));
 
