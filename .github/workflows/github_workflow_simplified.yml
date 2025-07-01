@@ -80,7 +80,7 @@ jobs:
       run: |
         dotnet tool install --global dotnet-ef
         dotnet tool restore
-        dotnet ef database update -p ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj --connection "$CONN_STRING_PASSWORD" --startup-project ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj
+        dotnet ef database update -p ./ICT1.4-AI-Vision-API/ --connection "$CONN_STRING_PASSWORD"
 
   deploy:
     runs-on: ubuntu-latest
