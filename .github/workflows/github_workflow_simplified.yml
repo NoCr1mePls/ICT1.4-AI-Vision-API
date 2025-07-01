@@ -73,6 +73,15 @@ jobs:
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: ${{ env.PUBLISH_DIRECTORY}}
+        
+    - name: RUN ef
+      env:
+        CONN_STRING_PASSWORD: ${{ secrets.DB_CONNECTIONSTRING }}
+      run: |
+        dotnet tool install --global dotnet-ef
+        dotnet tool restore
+        dotnet ef database update -p ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj --connection "$CONN_STRING_PASSWORD"
+
 
     
   deploy:
@@ -95,11 +104,4 @@ jobs:
         package: '${{ env.PUBLISH_DIRECTORY}}'
         clean: true
 
-    - name: RUN ef
-      env:
-        CONN_STRING_PASSWORD: ${{ secrets.DB_CONNECTIONSTRING}}
-      run: |
-        dotnet tool install --global dotnet-ef
-        dotnet tool restore
-        dotnet ef database update -p ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj --connection "$CONN_STRING_PASSWORD" --context SensoringApi.Data.LitterDbContext
-
+   
