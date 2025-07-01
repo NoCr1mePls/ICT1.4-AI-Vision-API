@@ -80,7 +80,7 @@ jobs:
       run: |
         dotnet tool install --global dotnet-ef
         dotnet tool restore
-        dotnet ef database update -p ./ICT1.4-AI-Vision-API/ --connection "$CONN_STRING_PASSWORD"
+        dotnet ef database update -p ./ICT1.4-AI-Vision-API/ --connection "$CONN_STRING_PASSWORD" --context SensoringApi.Data.LitterDbContext
 
   deploy:
     runs-on: ubuntu-latest
