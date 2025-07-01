@@ -77,7 +77,7 @@ jobs:
     - name: RUN ef
       env:
         CONN_STRING_PASSWORD: ${{ secrets.DB_CONNECTIONSTRING}}
-      run:
+      run: |
         dotnet tool install --global dotnet-ef
         dotnet tool restore
         dotnet tool database update -p ./ICT1.4-AI-Vision-API/ICT1.4-AI-Vision-API.csproj --connection "$CONN_STRING_PASSWORD"
